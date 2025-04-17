@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         fontWeight:"800",
         alignItems:"center",
         textAlign:"center",
+        letterSpacing:-1
     }
 })
 export default HeadingText;

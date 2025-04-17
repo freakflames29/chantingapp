@@ -93,7 +93,7 @@ const SignupScreen = ({navigation}) => {
                 </ImageBackground>
 
 
-                <HeadingText text={"Signup"} size={40}/>
+                <HeadingText text={"Create an account"} size={40}/>
                 <View style={styles.container}>
                     <AppTextInput
                         placeholder="Username"
@@ -122,7 +122,7 @@ const SignupScreen = ({navigation}) => {
 
                     />
                     <AppButton
-                        title={"Signup"}
+                        title={"Sign up"}
                         style={styles.btnStyle}
                         underlayColor={colors.darkBlue}
                         textColor={"white"}
@@ -131,10 +131,10 @@ const SignupScreen = ({navigation}) => {
                     />
 
 
-                    {isPending && <Text>Submitting...</Text>}
+                    <Text>Already an User ? Login</Text>
                 </View>
 
-                <StatusBar style={"light"}/>
+                <StatusBar style={"dark"}/>
 
 
             </ScrollView>
@@ -144,8 +144,8 @@ const SignupScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     backGround: {
-        flex: 1,
-        flexGrow: 1.5,
+        flex: 2,
+        flexGrow: 1,
     },
     container: {
         gap: 20,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        flex:1.5,
+        flex:1.8,
     },
 
 
