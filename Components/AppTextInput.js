@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightBg,
         paddingHorizontal: 18,
         paddingVertical: 10,
-        borderRadius: 50,
+        borderRadius: 20,
 
         flexDirection: "row",
         alignItems: "center"

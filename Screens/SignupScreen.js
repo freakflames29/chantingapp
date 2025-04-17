@@ -8,7 +8,7 @@ import {
     Text,
     View,
     Platform,
-    ScrollView
+    ScrollView, KeyboardAvoidingView
 } from "react-native";
 import WorkArea from "../Components/WorkArea";
 import {StatusBar} from "expo-status-bar";
@@ -77,76 +77,80 @@ const SignupScreen = ({navigation}) => {
 
 
     return (
-        <ScrollView contentContainerStyle={styles.backGround}>
 
+            <ScrollView contentContainerStyle={styles.backGround}
 
-            <ImageBackground
-                source={require("../assets/loginpng.png")}
-                // resizeMode={"contain"}
-                style={styles.image}
             >
 
 
-            </ImageBackground>
+                <ImageBackground
+                    source={require("../assets/loginpng.png")}
+                    // resizeMode={"cover"}
+                    style={styles.image}
+                >
 
 
-            <HeadingText text={"Signup"} size={40}/>
-            <View style={styles.container}>
-                <AppTextInput
-                    placeholder="Username"
-                    onChangeText={(text) => setUsername(text)}
-                    autoCapitalize={"none"}
-                    icon={"drive-file-rename-outline"}
-                    iconColor={colors.gray}
-
-                />
-                <AppTextInput
-                    placeholder="Email address"
-                    onChangeText={(text) => setEmail(text)}
-                    autoCapitalize={"none"}
-                    icon={"email"}
-                    iconColor={colors.gray}
-
-                />
-                <AppTextInput
-                    placeholder="Email Password"
-                    secureTextEntry={true}
-                    autoCapitalize={"none"}
-
-                    onChangeText={(text) => setPassword(text)}
-                    icon={"lock"}
-                    iconColor={colors.gray}
-
-                />
-                <AppButton
-                    title={"Signup"}
-                    style={styles.btnStyle}
-                    underlayColor={colors.darkBlue}
-                    textColor={"white"}
-                    onPress={() => {/* mutate()*/
-                    }}
-                />
+                </ImageBackground>
 
 
-                {isPending && <Text>Submitting...</Text>}
-            </View>
+                <HeadingText text={"Signup"} size={40}/>
+                <View style={styles.container}>
+                    <AppTextInput
+                        placeholder="Username"
+                        onChangeText={(text) => setUsername(text)}
+                        autoCapitalize={"none"}
+                        icon={"drive-file-rename-outline"}
+                        iconColor={colors.gray}
 
-            <StatusBar style={"light"}/>
+                    />
+                    <AppTextInput
+                        placeholder="Email address"
+                        onChangeText={(text) => setEmail(text)}
+                        autoCapitalize={"none"}
+                        icon={"email"}
+                        iconColor={colors.gray}
+
+                    />
+                    <AppTextInput
+                        placeholder="Email Password"
+                        secureTextEntry={true}
+                        autoCapitalize={"none"}
+
+                        onChangeText={(text) => setPassword(text)}
+                        icon={"lock"}
+                        iconColor={colors.gray}
+
+                    />
+                    <AppButton
+                        title={"Signup"}
+                        style={styles.btnStyle}
+                        underlayColor={colors.darkBlue}
+                        textColor={"white"}
+                        onPress={() => {/* mutate()*/
+                        }}
+                    />
 
 
-        </ScrollView>
+                    {isPending && <Text>Submitting...</Text>}
+                </View>
+
+                <StatusBar style={"light"}/>
+
+
+            </ScrollView>
+
     );
 };
 
 const styles = StyleSheet.create({
     backGround: {
         flex: 1,
-        flexGrow:1,
+        flexGrow: 1.5,
     },
     container: {
         gap: 20,
         padding: 25,
-        flex: 1,
+        flex: 1.5,
         alignItems: "center"
 
     }, btnStyle: {
@@ -155,9 +159,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        flex:7
-
-
+        flex:1.5,
     },
 
 
