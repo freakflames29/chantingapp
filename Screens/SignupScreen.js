@@ -1,5 +1,15 @@
 import {useState, useEffect} from 'react';
-import {ActivityIndicator, Button, StyleSheet, Text, View} from "react-native";
+import {
+    ActivityIndicator,
+    Button,
+    Image,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    View,
+    Platform,
+    ScrollView
+} from "react-native";
 import WorkArea from "../Components/WorkArea";
 import {StatusBar} from "expo-status-bar";
 import AppTextInput from "../Components/AppTextInput";
@@ -10,6 +20,11 @@ import {useMutation} from "@tanstack/react-query";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
 import {userActions} from "../redux/userSlice";
 import {useDispatch} from "react-redux";
+import colors from "../config/colors";
+import AppButton from "../Components/AppButton";
+import LinearGradient from 'react-native-linear-gradient';
+import HeadingText from "../Components/HeadingText";
+
 
 const SignupScreen = ({navigation}) => {
 
@@ -61,48 +76,91 @@ const SignupScreen = ({navigation}) => {
     }, [isSuccess, data]);
 
 
-    return (<WorkArea style={{flex: 1}}>
-        <View style={styles.container}>
-
-            <AppTextInput
-                placeholder="Username"
-                onChangeText={(text) => setUsername(text)}
-                autoCapitalize={"none"}
-            />
-            <AppTextInput
-                placeholder="Email address"
-                onChangeText={(text) => setEmail(text)}
-                autoCapitalize={"none"}
+    return (
+        <ScrollView contentContainerStyle={styles.backGround}>
 
 
-            />
-            <AppTextInput
-                placeholder="Email Password"
-                secureTextEntry={true}
-                autoCapitalize={"none"}
-
-                onChangeText={(text) => setPassword(text)}
-
-            />
-            <Button title={"Signup"}
-                    onPress={() => mutate()}
-            />
+            <ImageBackground
+                source={require("../assets/loginpng.png")}
+                // resizeMode={"contain"}
+                style={styles.image}
+            >
 
 
-            {isPending && <Text>Submitting...</Text>}
-        </View>
+            </ImageBackground>
 
 
-        <StatusBar style={"dark"}/>
-    </WorkArea>);
+            <HeadingText text={"Signup"} size={40}/>
+            <View style={styles.container}>
+                <AppTextInput
+                    placeholder="Username"
+                    onChangeText={(text) => setUsername(text)}
+                    autoCapitalize={"none"}
+                    icon={"drive-file-rename-outline"}
+                    iconColor={colors.gray}
+
+                />
+                <AppTextInput
+                    placeholder="Email address"
+                    onChangeText={(text) => setEmail(text)}
+                    autoCapitalize={"none"}
+                    icon={"email"}
+                    iconColor={colors.gray}
+
+                />
+                <AppTextInput
+                    placeholder="Email Password"
+                    secureTextEntry={true}
+                    autoCapitalize={"none"}
+
+                    onChangeText={(text) => setPassword(text)}
+                    icon={"lock"}
+                    iconColor={colors.gray}
+
+                />
+                <AppButton
+                    title={"Signup"}
+                    style={styles.btnStyle}
+                    underlayColor={colors.darkBlue}
+                    textColor={"white"}
+                    onPress={() => {/* mutate()*/
+                    }}
+                />
+
+
+                {isPending && <Text>Submitting...</Text>}
+            </View>
+
+            <StatusBar style={"light"}/>
+
+
+        </ScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
+    backGround: {
+        flex: 1,
+        flexGrow:1,
+    },
     container: {
-        gap: 10,
+        gap: 20,
+        padding: 25,
+        flex: 1,
+        alignItems: "center"
+
+    }, btnStyle: {
+        backgroundColor: colors.blue,
+        width: "100%",
+    },
+    image: {
+        width: "100%",
+        flex:7
 
 
-    }
+    },
+
+
 })
 
 export default SignupScreen;

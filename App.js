@@ -14,9 +14,10 @@ export default function App() {
     return (<QueryClientProvider client={queryClient}>
         <Provider store={store}>
 
-            <NavigationContainer>
-                <TabNavigation/>
-            </NavigationContainer>
+            <SignupScreen/>
+            {/*<NavigationContainer>*/}
+            {/*    <TabNavigation/>*/}
+            {/*</NavigationContainer>*/}
         </Provider>
     </QueryClientProvider>);
 }
