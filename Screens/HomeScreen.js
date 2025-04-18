@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useRef,useLayoutEffect} from 'react';
 import {Button, Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
 import {useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import {userActions} from "../redux/userSlice";
 import WorkArea from "../Components/WorkArea";
 import colors from "../config/colors";
 import {StatusBar} from "expo-status-bar";
+import ActionCard from "../Components/ActionCard";
 
 
 const HomeScreen = ({navigation}) => {
@@ -14,7 +15,12 @@ const HomeScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
 
-    const [chantCount, setChantCount] = useState(10)
+    const [chantCount, setChantCount] = useState(0)
+    const [progressBackground, setProgressBackground] = useState()
+    const [progressForeground, setProgressForground] = useState()
+
+    const backRef = useRef()
+    const frontRef = useRef()
 
     const today = new Date();
     const formattedDate = today.getDate() + " " +
@@ -24,6 +30,25 @@ const HomeScreen = ({navigation}) => {
 
     const theValue = Math.round((chantCount / 16) * 100)
     const progressValue = theValue > 100 ? 100 : theValue
+
+
+    useEffect(() => {
+        if (chantCount < 4) {
+            setProgressBackground(colors.red)
+            setProgressForground(colors.lightRed)
+        } else if (chantCount >= 4 && chantCount < 10) {
+            setProgressBackground(colors.ornage)
+            setProgressForground(colors.lightOrange)
+        } else {
+            setProgressBackground(colors.darkGreen)
+            setProgressForground(colors.lightGreen)
+        }
+
+
+    }, [chantCount]);
+
+
+
 
 
     return (
@@ -41,13 +66,13 @@ const HomeScreen = ({navigation}) => {
 
                     <View style={styles.countContainer}>
 
-                        <Text style={styles.cardsubHeading}>Rounds</Text>
+                        <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Rounds</Text>
                         <View style={{
                             flexDirection: "row",
                             justifyContent: "space-between",
 
                         }}>
-                            <Text style={styles.cardHeading}>{chantCount}</Text>
+                            <Text style={[styles.cardHeading, {color: progressBackground}]}>{chantCount}</Text>
 
                             <Image
                                 source={require("../assets/chant.png")}
@@ -61,9 +86,47 @@ const HomeScreen = ({navigation}) => {
 
                             />
                         </View>
-                        <View style={styles.progressbarOutside}>
-                            <View style={[styles.progressBarInside, {width: `${progressValue}%`}]}/>
+                        <View
+
+                            style={[styles.progressbarOutside,
+                            {
+                            borderRadius: 500,
+                            backgroundColor: progressBackground,
+                        }]}>
+                            <View
+
+                                style={[styles.progressBarInside,
+                                {
+                                    borderRadius: 500,
+                                    width: `${progressValue}%`,
+                                    backgroundColor: progressForeground,
+                                }]}/>
                         </View>
+
+                    </View>
+
+
+                    <View style={{
+                        flexDirection: "row",
+                        gap: 10,
+                        marginTop: 20,
+
+                    }}>
+                        <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
+                                    bgColor={colors.red}
+                                    textColor={"white"}
+                                    iconColor={"white"}
+                                    onPress={() => {
+                                        navigation.navigate("chant")
+                                    }}
+                        />
+
+                        <ActionCard title={"Chant Digitally"} buttonText={"Chant Now"}
+                                    bgColor={colors.blue}
+                                    textColor={"white"}
+                                    iconColor={"white"}
+                                    onPress={() => setChantCount(prev => prev + 1)}
+                        />
 
                     </View>
                 </View>
@@ -83,7 +146,7 @@ const styles = StyleSheet.create({
         borderCurve: "continuous",
         borderRadius: 36,
         backgroundColor: "#FFFDF6",
-        overflow: "hidden",
+        // overflow: "hidden",
         // elevation:2,
         justifyContent: "space-evenly",
         paddingVertical: 25,
@@ -104,18 +167,25 @@ const styles = StyleSheet.create({
         color: colors.darkGreen
     },
     progressbarOutside: {
+        borderRadius: 100,
         width: "100%",
         height: 50,
+        minHeight:50,
         backgroundColor: colors.darkGreen,
-        borderRadius: 50,
         justifyContent: "center",
         paddingHorizontal: 15,
+        minWidth:"100%",
+        overflow:"hidden",
     },
     progressBarInside: {
+        // minWidth:1,
+        borderRadius: 100,
         width: "80%",
         height: 30,
-        borderRadius: 50,
-        backgroundColor: colors.lightGreen
+        minHeight:30,
+        backgroundColor: colors.lightGreen,
+        overflow:"hidden",
+
     },
     scrollView: {
         flex: 1,
