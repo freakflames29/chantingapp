@@ -22,8 +22,9 @@ const TabNavigation = () => {
                     marginHorizontal: 20,
                     bottom: 20,
                     paddingBottom: 0,
-                    borderRadius: 40,
+                    borderRadius: 50,
                     height: 80,
+                    borderCurve:"circular",
                     backgroundColor:colors.darkGreen
 
                 },
