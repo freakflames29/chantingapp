@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 
         padding: 15,
         borderRadius: 20,
+        borderCurve:"continuous",
         justifyContent: "center",
         alignItems: "center"
     },
