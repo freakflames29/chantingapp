@@ -4,6 +4,7 @@ import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncSto
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {userActions} from "../redux/userSlice";
+import WorkArea from "../Components/WorkArea";
 
 
 const HomeScreen = ({navigation}) => {
@@ -11,43 +12,19 @@ const HomeScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
 
-    const RetrieveAsyncStorageData = async () => {
-        try {
-            const asdata = await asyncStorage.getItem("info")
-            if (asdata === null) {
-                navigation.navigate("signup")
 
-            } else {
 
-                const parsedData = JSON.parse(asdata)
-                console.log("asdata", asdata)
-                dispatch(userActions.setData(parsedData))
-            }
-
-        } catch (e) {
-            console.log("Error reading the data from async storage")
-        }
+    const clearAsync = async () => {
+        await asyncStorage.clear()
+        dispatch(userActions.removeData())
     }
 
-
-    useEffect(() => {
-        console.log(userInfo)
-        if (userInfo === null) {
-
-            RetrieveAsyncStorageData()
-        }
-    }, [userInfo]);
-
-    // const clearAsync = async () => {
-    //     await asyncStorage.clear()
-    //     dispatch(userActions.removeData())
-    // }
-
     return (
-        <View>
+        <WorkArea>
             <Text>Hello: {userInfo?.username}</Text>
+            <Button title={"Clear localstorage"} onPress={clearAsync}/>
 
-        </View>
+        </WorkArea>
     );
 };
 

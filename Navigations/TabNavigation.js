@@ -9,11 +9,7 @@ const Tab = createBottomTabNavigator()
 const TabNavigation = () => {
     return (
         <Tab.Navigator id={1}>
-            <Tab.Screen name={"signup"} component={SignupScreen}
-                                    options={{
-                                        headerShown:false
-                                    }}
-            />
+
             <Tab.Screen name={"home"} component={HomeScreen}/>
 
         </Tab.Navigator>

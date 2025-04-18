@@ -24,6 +24,7 @@ import colors from "../config/colors";
 import AppButton from "../Components/AppButton";
 import LinearGradient from 'react-native-linear-gradient';
 import HeadingText from "../Components/HeadingText";
+import TouchableText from "../Components/TouchableText";
 
 
 const SignupScreen = ({navigation}) => {
@@ -71,73 +72,79 @@ const SignupScreen = ({navigation}) => {
         if (isSuccess) {
             setDataToAsyncStorage(data)
             dispatch(userActions.setData(data))
-            navigation.navigate("home")
+
         }
     }, [isSuccess, data]);
 
 
     return (
 
-            <ScrollView contentContainerStyle={styles.backGround}
+        <ScrollView contentContainerStyle={styles.backGround}
 
+        >
+
+
+            <ImageBackground
+                source={require("../assets/loginpng.png")}
+                // resizeMode={"cover"}
+                style={styles.image}
             >
 
 
-                <ImageBackground
-                    source={require("../assets/loginpng.png")}
-                    // resizeMode={"cover"}
-                    style={styles.image}
-                >
+            </ImageBackground>
 
 
-                </ImageBackground>
+            <HeadingText text={"Create an account"} size={40}/>
+            <View style={styles.container}>
+                <AppTextInput
+                    placeholder="Username"
+                    onChangeText={(text) => setUsername(text)}
+                    autoCapitalize={"none"}
+                    icon={"drive-file-rename-outline"}
+                    iconColor={colors.gray}
+
+                />
+                <AppTextInput
+                    placeholder="Email address"
+                    onChangeText={(text) => setEmail(text)}
+                    autoCapitalize={"none"}
+                    icon={"email"}
+                    iconColor={colors.gray}
+
+                />
+                <AppTextInput
+                    placeholder="Email Password"
+                    secureTextEntry={true}
+                    autoCapitalize={"none"}
+
+                    onChangeText={(text) => setPassword(text)}
+                    icon={"lock"}
+                    iconColor={colors.gray}
+
+                />
+                <AppButton
+                    title={"Sign up"}
+                    style={styles.btnStyle}
+                    underlayColor={colors.darkBlue}
+                    textColor={"white"}
+                    onPress={() => {
+                        mutate()
+                    }}
+                />
 
 
-                <HeadingText text={"Create an account"} size={40}/>
-                <View style={styles.container}>
-                    <AppTextInput
-                        placeholder="Username"
-                        onChangeText={(text) => setUsername(text)}
-                        autoCapitalize={"none"}
-                        icon={"drive-file-rename-outline"}
-                        iconColor={colors.gray}
+                <TouchableText text={"Already an User ? Login"}
+                               onPress={() => {
+                                   navigation.navigate("login")
+                               }}
+                />
 
-                    />
-                    <AppTextInput
-                        placeholder="Email address"
-                        onChangeText={(text) => setEmail(text)}
-                        autoCapitalize={"none"}
-                        icon={"email"}
-                        iconColor={colors.gray}
+            </View>
 
-                    />
-                    <AppTextInput
-                        placeholder="Email Password"
-                        secureTextEntry={true}
-                        autoCapitalize={"none"}
-
-                        onChangeText={(text) => setPassword(text)}
-                        icon={"lock"}
-                        iconColor={colors.gray}
-
-                    />
-                    <AppButton
-                        title={"Sign up"}
-                        style={styles.btnStyle}
-                        underlayColor={colors.darkBlue}
-                        textColor={"white"}
-                        onPress={() => {/* mutate()*/
-                        }}
-                    />
+            <StatusBar style={"dark"}/>
 
 
-                    <Text>Already an User ? Login</Text>
-                </View>
-
-                <StatusBar style={"dark"}/>
-
-
-            </ScrollView>
+        </ScrollView>
 
     );
 };
@@ -159,7 +166,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        flex:1.8,
+        flex: 1.8,
     },
 
 

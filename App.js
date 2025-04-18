@@ -7,17 +7,17 @@ import {NavigationContainer} from "@react-navigation/native";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import store from "./redux/store";
 import {Provider} from "react-redux";
+import LoginScreen from "./Screens/LoginScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import Root from "./Root";
 
 const queryClient = new QueryClient()
 
 export default function App() {
-    return (<QueryClientProvider client={queryClient}>
+    return (
+        <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-
-            <SignupScreen/>
-            {/*<NavigationContainer>*/}
-            {/*    <TabNavigation/>*/}
-            {/*</NavigationContainer>*/}
+            <Root/>
         </Provider>
     </QueryClientProvider>);
 }
