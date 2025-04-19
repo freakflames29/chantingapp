@@ -8,6 +8,7 @@ import Satasang from "../Screens/Satasang";
 import MyProfile from "../Screens/MyProfile";
 import TabBarIcon from "../Components/TabBarIcon";
 import colors from "../config/colors";
+import HomeNavigation from "./HomeNavigation";
 
 const Tab = createBottomTabNavigator()
 
@@ -40,7 +41,7 @@ const TabNavigation = () => {
 
         >
 
-            <Tab.Screen name={"home"} component={HomeScreen}
+            <Tab.Screen name={"home"} component={HomeNavigation}
                         options={{
                             tabBarLabel: () => null,
                             tabBarIcon: ({focused}) => <TabBarIcon name={"home"} focused={focused} label={"Home"}/>

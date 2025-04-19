@@ -170,11 +170,12 @@ const HomeScreen = ({navigation}) => {
                                             }}
                                 />
 
-                                <ActionCard title={"Chant Digitally"} buttonText={"Chant Now"}
+                                <ActionCard title={"Digital Chanter"} buttonText={"Chnat now"}
                                             bgColor={colors.lightGreen}
                                             textColor={"white"}
                                             iconColor={"white"}
                                             onPress={() => {
+                                                navigation.navigate("digitalChant")
                                             }}
                                 />
 

@@ -19,8 +19,10 @@ import HeadingText from "../Components/HeadingText";
 const ChantScreen = () => {
 
     const chantInfo = useSelector(state => state.chantReducer.chantInfo)
+
     const userInfo = useSelector(state => state.userReducer.info)
 
+    const [beads,setBeads] = useState(105)
 
     const {startStop, formatTime, isRunning, reset} = useTimer()
 
@@ -35,6 +37,18 @@ const ChantScreen = () => {
         dispatch(chantActions.increase())
     }
 
+    const addBead = ()=>{
+        setBeads(prevState => prevState+1)
+    }
+
+    useEffect(() => {
+
+        if (beads === 108){
+            addChant()
+            setBeads(0)
+        }
+
+    }, [beads]);
     const updateChant = async () => {
         startStop()
         const payload = {
@@ -71,13 +85,17 @@ const ChantScreen = () => {
             {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated succesfully"} iconName={"check"}/>}
 
             <View style={styles.topPart}>
-                <HeadingText text={"Japa Tracker"} size={40} color={"white"} style={{marginBottom: 30,marginTop:30}}/>
-                <Text style={{fontSize: 20, color: "white"}}>Rounds</Text>
+                <HeadingText text={"Digital Chanter"} size={40} color={"white"} style={{marginBottom: 30,marginTop:30}}/>
+                <Text style={{fontSize: 15, color: "white"}}>Rounds</Text>
                 <Text style={styles.countText}>{chantInfo.count}</Text>
+
+                <Text style={{fontSize:20,color:"white"}}>Beads</Text>
+                <Text style={{fontSize:100,color:"white"}}>{beads}</Text>
+
             </View>
             <View style={styles.downPart}>
                 <View style={styles.time}>
-                    <Text style={{fontSize: 20, color: colors.blue}}>Time</Text>
+                    <Text style={{fontSize: 20, color: colors.lightGreen}}>Time</Text>
                     <Text style={styles.timeText}>{formatTime()}</Text>
 
                     <View style={{
@@ -89,14 +107,14 @@ const ChantScreen = () => {
                         <TouchableOpacity onPress={startStop}>
                             <Text style={{
                                 fontSize: 20,
-                                color: colors.blue
+                                color: colors.lightGreen
 
                             }}>{isRunning ? "Pause" : "Start"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={reset}>
                             <Text style={{
                                 fontSize: 20,
-                                color: colors.blue
+                                color: colors.lightGreen
                             }}>Reset</Text>
                         </TouchableOpacity>
                     </View>
@@ -111,18 +129,18 @@ const ChantScreen = () => {
 
                     <AppButton title={isPending ? "Saving..." : 'Save'}
                                style={styles.saveBtn}
-                               textColor={colors.blue}
-                               underlayColor={colors.darkBlue}
+                               textColor={colors.darkGreen}
+                               underlayColor={colors.lightGreen}
                                onPress={() => mutate()}
-                               icon={<Entypo name="save" size={24} color={colors.blue}/>}
+                               icon={<Entypo name="save" size={24} color={colors.lightGreen}/>}
                     />
 
                     <AppButton
-                        title={"Add round"}
+                        title={"Add bead"}
                         style={styles.addBtn}
                         textColor={"white"}
-                        underlayColor={colors.darkBlue}
-                        onPress={addChant}
+                        underlayColor={colors.lightGreen}
+                        onPress={addBead}
                         icon={<MaterialIcons name="add-circle" size={24} color="white"/>}
                     />
                 </View>
@@ -143,23 +161,23 @@ const styles = StyleSheet.create({
         marginTop: 60,
     },
     saveBtn: {
-        backgroundColor: colors.lightBlue,
+        backgroundColor: colors.veryLightGreen,
         width: "35%",
         height: 60,
-        color: colors.blue
+        color: colors.darkGreen
     },
     addBtn: {
-        backgroundColor: colors.blue,
+        backgroundColor: colors.lightGreen,
         width: "45%",
         height: 60,
 
     },
     container: {
         flex: 1,
-        backgroundColor: colors.blue
+        backgroundColor: colors.lightGreen
     },
     downPart: {
-        flex: 1.5,
+        flex: 1.1,
         backgroundColor: "white",
         borderTopLeftRadius: 60,
         borderTopRightRadius: 60,
@@ -172,15 +190,17 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     countText: {
-        fontSize: 150,
+        fontSize: 40,
         color: "white",
         fontWeight: "bold"
     },
     time: {
         marginTop: 40,
         alignItems: "center",
-        backgroundColor: colors.lightBlue,
+        borderColor: colors.veryLightGreen,
+        borderWidth:2,
         borderRadius: 24,
+        // elevation:1,
         padding: 20,
         width: "80%",
         height: "30%",
@@ -189,7 +209,7 @@ const styles = StyleSheet.create({
     },
     timeText: {
         fontSize: 40,
-        color: colors.blue,
+        color: colors.lightGreen,
         fontWeight: "700"
     }
 })

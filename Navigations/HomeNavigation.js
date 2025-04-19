@@ -8,9 +8,16 @@ const Stack = createStackNavigator()
 
 const HomeNavigation = () => {
     return (
-        <Stack.Navigator>
-                <Stack.Screen name={"home"} component={HomeScreen}/>
-            <Stack.Screen name={"digitalChant"} component={DigitalChantScreen}/>
+        <Stack.Navigator screenOptions={{headerShown: true}}>
+            <Stack.Screen name={"home"} component={HomeScreen} options={{headerShown: false}}/>
+            <Stack.Screen name={"digitalChant"} component={DigitalChantScreen} options={{
+                headerTitle: "",
+                headerBackTitle:"",
+                headerTintColor: "white",
+                headerTransparent: true,
+
+
+            }}/>
         </Stack.Navigator>
     );
 };

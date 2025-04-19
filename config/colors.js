@@ -12,7 +12,8 @@ const colors = {
     lightWhite:"#f6f6f6",
     lightBlue:"#e6f4ff",
     black:"#222222",
-    pureBlack:"#000000"
+    pureBlack:"#000000",
+    veryLightGreen:"#e6ffde"
 
 
 }
