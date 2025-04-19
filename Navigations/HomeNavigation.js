@@ -23,7 +23,7 @@ const HomeNavigation = () => {
             <Stack.Screen name={"records"} component={ChantRecordsScreen} options={{
                 headerTitle: "",
                 headerBackTitle: "",
-                headerTintColor: colors.lightGreen,
+                headerTintColor: "black",
                 headerTransparent: true,
             }}/>
         </Stack.Navigator>
