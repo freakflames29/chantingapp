@@ -14,6 +14,7 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {ROOT_URL} from "../config/Constants";
 import Loading from "../Components/Loading";
+import Octicons from '@expo/vector-icons/Octicons';
 
 
 const HomeScreen = ({navigation}) => {
@@ -60,7 +61,7 @@ const HomeScreen = ({navigation}) => {
             headers: headers
         })
 
-        console.log("THe ress ", res)
+
         return res.data
 
     }
@@ -124,7 +125,7 @@ const HomeScreen = ({navigation}) => {
 
                             <View style={styles.countContainer}>
 
-                                <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Rounds</Text>
+                                <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Today rounds</Text>
                                 <View style={{
                                     flexDirection: "row", justifyContent: "space-between",
 
@@ -157,10 +158,7 @@ const HomeScreen = ({navigation}) => {
                             </View>
 
 
-                            <View style={{
-                                flexDirection: "row", gap: 10, marginTop: 20,
-
-                            }}>
+                            <View style={{flexDirection: "row", gap: 10, marginTop: 20,}}>
                                 <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
                                             bgColor={colors.blue}
                                             textColor={"white"}
@@ -180,6 +178,18 @@ const HomeScreen = ({navigation}) => {
                                 />
 
                             </View>
+
+
+                            <View style={styles.chantRecords}>
+
+                                <Text style={{
+                                    fontSize: 20,
+                                    color: "white",
+                                    fontWeight:"bold",
+                                    
+                                }}>Chant Records</Text>
+                                <Octicons name="graph" size={24} color="white"/>
+                            </View>
                         </View>
                     </WorkArea>
                     <StatusBar style={"dark"}/>
@@ -191,7 +201,8 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
-    }, countContainer: {
+    },
+    countContainer: {
         marginTop: "10%",
         width: "100%",
         height: 250,
@@ -229,7 +240,10 @@ const styles = StyleSheet.create({
         overflow: "hidden",
 
     }, scrollView: {
-        flex: 1, backgroundColor: colors.lightWhite, flexGrow: 1,
+
+        backgroundColor: colors.lightWhite,
+        flexGrow: 1,
+        paddingBottom:100,
 
     }, heading: {
         fontSize: 40, fontWeight: "bold", letterSpacing: -1,
@@ -241,9 +255,24 @@ const styles = StyleSheet.create({
     },
 
     workArea: {
-        flex: 1, padding: 25,
+        flex: 1,
+        padding: 25,
 
-    }
+    },
+    chantRecords: {
+        marginTop: 20,
+        borderRadius: 20,
+        width: "100%",
+        height: 60,
+        paddingHorizontal: 25,
+        alignItems: "center",
+        justifyContent: "space-between",
+        // justifyContent: "center",
+        backgroundColor: colors.darkBlue,
+        flexDirection: "row",
+        gap: 10,
+
+    },
 })
 export default HomeScreen;
 

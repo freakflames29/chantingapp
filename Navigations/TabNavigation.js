@@ -41,7 +41,7 @@ const TabNavigation = () => {
 
         >
 
-            <Tab.Screen name={"home"} component={HomeNavigation}
+            <Tab.Screen name={"homeNavigation"} component={HomeNavigation}
                         options={{
                             tabBarLabel: () => null,
                             tabBarIcon: ({focused}) => <TabBarIcon name={"home"} focused={focused} label={"Home"}/>
