@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from "@react-navigation/stack";
 import HomeScreen from "../Screens/HomeScreen";
 import DigitalChantScreen from "../Screens/DigitalChantScreen";
+import colors from "../config/colors";
 
 
 const Stack = createStackNavigator()
@@ -13,7 +14,7 @@ const HomeNavigation = () => {
             <Stack.Screen name={"digitalChant"} component={DigitalChantScreen} options={{
                 headerTitle: "",
                 headerBackTitle:"",
-                headerTintColor: "white",
+                headerTintColor: colors.lightGreen,
                 headerTransparent: true,
 
 

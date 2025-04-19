@@ -15,6 +15,8 @@ import useTimer from "../hooks/useTimer";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import HeadingText from "../Components/HeadingText";
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+
 
 const ChantScreen = () => {
 
@@ -22,7 +24,9 @@ const ChantScreen = () => {
 
     const userInfo = useSelector(state => state.userReducer.info)
 
-    const [beads,setBeads] = useState(105)
+    const [beads,setBeads] = useState(0)
+
+    const progress = Math.round((beads/108)*100)
 
     const {startStop, formatTime, isRunning, reset} = useTimer()
 
@@ -85,17 +89,36 @@ const ChantScreen = () => {
             {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated succesfully"} iconName={"check"}/>}
 
             <View style={styles.topPart}>
-                <HeadingText text={"Digital Chanter"} size={40} color={"white"} style={{marginBottom: 30,marginTop:30}}/>
-                <Text style={{fontSize: 15, color: "white"}}>Rounds</Text>
-                <Text style={styles.countText}>{chantInfo.count}</Text>
+                <HeadingText text={"Digital Chanter"} size={40} color={colors.lightGreen} style={{marginBottom: 30,marginTop:30}}/>
+                {/*<Text style={{fontSize: 15, color: colors.lightGreen}}>Rounds</Text>*/}
+                {/*<Text style={styles.countText}>{chantInfo.count}</Text>*/}
 
-                <Text style={{fontSize:20,color:"white"}}>Beads</Text>
-                <Text style={{fontSize:100,color:"white"}}>{beads}</Text>
+                {/*<Text style={{fontSize:20,color:"white"}}>Beads</Text>*/}
+                {/*<Text style={{fontSize:100,color:"white"}}>{beads}</Text>*/}
+
+            <AnimatedCircularProgress
+                size={250}
+                width={20}
+                fill={progress}
+                rotation={360}
+                lineCap={"round"}
+                tintColor={colors.darkGreen}
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor={colors.veryLightGreen}>
+
+                {
+                    (fill)=><View style={{alignItems:"center"}}>
+                        <Text style={{fontSize:20,color:colors.darkGreen}}>Rounds: {chantInfo.count}</Text>
+                        <Text style={{fontSize:60, fontWeight:"bold",color:colors.darkGreen}}>{beads}</Text>
+
+                    </View>
+                }
+            </AnimatedCircularProgress>
 
             </View>
             <View style={styles.downPart}>
                 <View style={styles.time}>
-                    <Text style={{fontSize: 20, color: colors.lightGreen}}>Time</Text>
+                    <Text style={{fontSize: 20, color: colors.lightWhite}}>Time</Text>
                     <Text style={styles.timeText}>{formatTime()}</Text>
 
                     <View style={{
@@ -107,14 +130,14 @@ const ChantScreen = () => {
                         <TouchableOpacity onPress={startStop}>
                             <Text style={{
                                 fontSize: 20,
-                                color: colors.lightGreen
+                                color: colors.lightWhite
 
                             }}>{isRunning ? "Pause" : "Start"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={reset}>
                             <Text style={{
                                 fontSize: 20,
-                                color: colors.lightGreen
+                                color: colors.lightWhite
                             }}>Reset</Text>
                         </TouchableOpacity>
                     </View>
@@ -149,7 +172,7 @@ const ChantScreen = () => {
             </View>
 
 
-            <StatusBar style={"light"}/>
+            <StatusBar style={"dark"}/>
         </View>
     );
 };
@@ -174,7 +197,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: colors.lightGreen
+        backgroundColor: "white"
     },
     downPart: {
         flex: 1.1,
@@ -191,13 +214,15 @@ const styles = StyleSheet.create({
     },
     countText: {
         fontSize: 40,
-        color: "white",
-        fontWeight: "bold"
+        color: colors.lightGreen,
+        fontWeight: "bold",
+        marginBottom:10,
     },
     time: {
         marginTop: 40,
         alignItems: "center",
-        borderColor: colors.veryLightGreen,
+        borderColor: colors.lightWhite,
+        backgroundColor:colors.lightGreen,
         borderWidth:2,
         borderRadius: 24,
         // elevation:1,
@@ -209,7 +234,7 @@ const styles = StyleSheet.create({
     },
     timeText: {
         fontSize: 40,
-        color: colors.lightGreen,
+        color: colors.lightWhite,
         fontWeight: "700"
     }
 })
