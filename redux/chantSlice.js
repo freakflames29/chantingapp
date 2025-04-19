@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     chantInfo: {
         id: 0,
-        count: 1,
+        count: 0,
         date: ""
     }
 }

@@ -14,6 +14,7 @@ import Toast from "../Components/Toast";
 import useTimer from "../hooks/useTimer";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
+import HeadingText from "../Components/HeadingText";
 
 const ChantScreen = () => {
 
@@ -66,7 +67,9 @@ const ChantScreen = () => {
     return (
         <View style={styles.container}>
             {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated succesfully"} iconName={"check"}/>}
+
             <View style={styles.topPart}>
+                <HeadingText text={"Japa Tracker"} size={40} color={"white"} style={{marginBottom: 30,marginTop:30}}/>
                 <Text style={{fontSize: 20, color: "white"}}>Rounds</Text>
                 <Text style={styles.countText}>{chantInfo.count}</Text>
             </View>
@@ -109,7 +112,7 @@ const ChantScreen = () => {
                                textColor={colors.blue}
                                underlayColor={colors.darkBlue}
                                onPress={() => mutate()}
-                               icon={<Entypo name="save" size={24} color={colors.blue} />}
+                               icon={<Entypo name="save" size={24} color={colors.blue}/>}
                     />
 
                     <AppButton
@@ -118,7 +121,7 @@ const ChantScreen = () => {
                         textColor={"white"}
                         underlayColor={colors.darkBlue}
                         onPress={addChant}
-                        icon={<MaterialIcons name="add-circle" size={24} color="white" />}
+                        icon={<MaterialIcons name="add-circle" size={24} color="white"/>}
                     />
                 </View>
 
@@ -140,13 +143,13 @@ const styles = StyleSheet.create({
     saveBtn: {
         backgroundColor: colors.lightBlue,
         width: "35%",
-        height:60,
+        height: 60,
         color: colors.blue
     },
     addBtn: {
         backgroundColor: colors.blue,
         width: "45%",
-        height:60,
+        height: 60,
 
     },
     container: {

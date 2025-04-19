@@ -13,6 +13,7 @@ import {authInstance} from "../config/AxiosInstance";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {ROOT_URL} from "../config/Constants";
+import Loading from "../Components/Loading";
 
 
 const HomeScreen = ({navigation}) => {
@@ -64,7 +65,7 @@ const HomeScreen = ({navigation}) => {
 
     }
 
-    const {data, error, isError, isLoading} = useQuery({
+    const {data, error, isError, isLoading, isSuccess} = useQuery({
         queryKey: ["userChantCount"], queryFn: fetchUserCount, enabled: !!userInfo?.token
     })
 
@@ -80,12 +81,12 @@ const HomeScreen = ({navigation}) => {
                 console.log(data[0])
 
                 dispatch(chantActions.setChant(data[0]))
+            } else {
+                const init = {count: 0}
+                dispatch(chantActions.setChant(init))
             }
-        } else {
-            const init = {count: 0}
-            dispatch(chantActions.setChant(init))
         }
-    }, [data]);
+    }, [isSuccess, data]);
 
 
     /// checks if chant count and based on setting the progress bar colors
@@ -105,77 +106,86 @@ const HomeScreen = ({navigation}) => {
     }, [chantInfo.count]);
 
 
-    return (<ScrollView contentContainerStyle={styles.scrollView}>
-        <Image
-            source={require("../assets/lotus.png")}
-            resizeMode={"contain"}
-            style={styles.imgStyle}
-        />
-
-        <WorkArea style={styles.workArea}>
-            <View style={styles.container}>
-                <Text style={styles.subHeading}>{formattedDate}</Text>
-
-                <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
-
-                <View style={styles.countContainer}>
-
-                    <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Rounds</Text>
-                    <View style={{
-                        flexDirection: "row", justifyContent: "space-between",
-
-                    }}>
-                        <Text style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
-
-                        <Image
-                            source={require("../assets/chant.png")}
-                            style={{
-                                width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
-                            }}
-
-                        />
-                    </View>
-                    <View
-
-                        style={[styles.progressbarOutside, {
-                            borderRadius: 500, backgroundColor: progressBackground,
-                        }]}>
-                        <View
-
-                            style={[styles.progressBarInside, {
-                                borderRadius: 500, width: `${progressValue}%`, backgroundColor: progressForeground,
-                            }]}/>
-                    </View>
-
-                </View>
-
-
-                <View style={{
-                    flexDirection: "row", gap: 10, marginTop: 20,
-
-                }}>
-                    <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
-                                bgColor={colors.red}
-                                textColor={"white"}
-                                iconColor={"white"}
-                                onPress={() => {
-                                    navigation.navigate("chant")
-                                }}
+    return (
+        <>
+            {isLoading ? <Loading/> :
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    <Image
+                        source={require("../assets/lotus.png")}
+                        resizeMode={"contain"}
+                        style={styles.imgStyle}
                     />
 
-                    <ActionCard title={"Chant Digitally"} buttonText={"Chant Now"}
-                                bgColor={colors.blue}
-                                textColor={"white"}
-                                iconColor={"white"}
-                                onPress={() => {
-                                }}
-                    />
+                    <WorkArea style={styles.workArea}>
+                        <View style={styles.container}>
+                            <Text style={styles.subHeading}>{formattedDate}</Text>
 
-                </View>
-            </View>
-        </WorkArea>
-        <StatusBar style={"dark"}/>
-    </ScrollView>);
+                            <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
+
+                            <View style={styles.countContainer}>
+
+                                <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Rounds</Text>
+                                <View style={{
+                                    flexDirection: "row", justifyContent: "space-between",
+
+                                }}>
+                                    <Text
+                                        style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
+
+                                    <Image
+                                        source={require("../assets/chant.png")}
+                                        style={{
+                                            width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
+                                        }}
+
+                                    />
+                                </View>
+                                <View
+
+                                    style={[styles.progressbarOutside, {
+                                        borderRadius: 500, backgroundColor: progressBackground,
+                                    }]}>
+                                    <View
+
+                                        style={[styles.progressBarInside, {
+                                            borderRadius: 500,
+                                            width: `${progressValue}%`,
+                                            backgroundColor: progressForeground,
+                                        }]}/>
+                                </View>
+
+                            </View>
+
+
+                            <View style={{
+                                flexDirection: "row", gap: 10, marginTop: 20,
+
+                            }}>
+                                <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
+                                            bgColor={colors.blue}
+                                            textColor={"white"}
+                                            iconColor={"white"}
+                                            onPress={() => {
+                                                navigation.navigate("chant")
+                                            }}
+                                />
+
+                                <ActionCard title={"Chant Digitally"} buttonText={"Chant Now"}
+                                            bgColor={colors.lightGreen}
+                                            textColor={"white"}
+                                            iconColor={"white"}
+                                            onPress={() => {
+                                            }}
+                                />
+
+                            </View>
+                        </View>
+                    </WorkArea>
+                    <StatusBar style={"dark"}/>
+                </ScrollView>
+
+            }</>
+    );
 };
 const styles = StyleSheet.create({
     container: {
