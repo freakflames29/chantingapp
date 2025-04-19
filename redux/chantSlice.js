@@ -4,8 +4,10 @@ const initialState = {
     chantInfo: {
         id: 0,
         count: 0,
-        date: ""
-    }
+        date: "0",
+        time: "0"
+    },
+    allCount: []
 }
 
 const chantSlice = createSlice({
@@ -17,6 +19,12 @@ const chantSlice = createSlice({
             state.chantInfo.count += 1
         }, decrease(state) {
             state.chantInfo.count -= 1
+        },
+        setAllCount(state, action) {
+            state.allCount = action.payload
+        },
+        removeAllCount(state, action) {
+            state.allCount = []
         }
     }
 })

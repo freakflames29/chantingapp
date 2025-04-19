@@ -24,11 +24,11 @@ const ChantScreen = () => {
 
     const userInfo = useSelector(state => state.userReducer.info)
 
-    const [beads,setBeads] = useState(0)
+    const [beads, setBeads] = useState(0)
 
-    const progress = Math.round((beads/108)*100)
+    const progress = Math.round((beads / 108) * 100)
 
-    const {startStop, formatTime, isRunning, reset} = useTimer()
+    const {startStop, formatTime, isRunning, reset, getTotalMinutes} = useTimer()
 
 
     const dispatch = useDispatch()
@@ -41,25 +41,31 @@ const ChantScreen = () => {
         dispatch(chantActions.increase())
     }
 
-    const addBead = ()=>{
-        setBeads(prevState => prevState+1)
+    const addBead = () => {
+        setBeads(prevState => prevState + 1)
     }
 
     useEffect(() => {
 
-        if (beads === 108){
+        if (beads === 108) {
             addChant()
             setBeads(0)
         }
 
     }, [beads]);
+
     const updateChant = async () => {
-        startStop()
+        if (isRunning) {
+            startStop()
+        }
+        const newTime = parseInt(chantInfo.time) + getTotalMinutes()
+
         const payload = {
             count: chantInfo.count,
             date: `${date}`,
-            time: `${formatTime()}`
+            time: `${newTime}`
         }
+        console.log(payload)
         const res = await axios.post(`${ROOT_URL}count/`, payload, {
             headers: {
                 Authorization: `Token ${userInfo.token}`,
@@ -86,34 +92,35 @@ const ChantScreen = () => {
 
     return (
         <View style={styles.container}>
-            {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated succesfully"} iconName={"check"}/>}
+            {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated successfully"} iconName={"check"}/>}
 
             <View style={styles.topPart}>
-                <HeadingText text={"Digital Chanter"} size={40} color={colors.lightGreen} style={{marginBottom: 30,marginTop:30}}/>
+                <HeadingText text={"Digital Chanter"} size={40} color={colors.lightGreen}
+                             style={{marginBottom: 30, marginTop: 30}}/>
                 {/*<Text style={{fontSize: 15, color: colors.lightGreen}}>Rounds</Text>*/}
                 {/*<Text style={styles.countText}>{chantInfo.count}</Text>*/}
 
                 {/*<Text style={{fontSize:20,color:"white"}}>Beads</Text>*/}
                 {/*<Text style={{fontSize:100,color:"white"}}>{beads}</Text>*/}
 
-            <AnimatedCircularProgress
-                size={250}
-                width={20}
-                fill={progress}
-                rotation={360}
-                lineCap={"round"}
-                tintColor={colors.darkGreen}
-                onAnimationComplete={() => console.log('onAnimationComplete')}
-                backgroundColor={colors.veryLightGreen}>
+                <AnimatedCircularProgress
+                    size={250}
+                    width={20}
+                    fill={progress}
+                    rotation={360}
+                    lineCap={"round"}
+                    tintColor={colors.darkGreen}
+                    onAnimationComplete={() => console.log('onAnimationComplete')}
+                    backgroundColor={colors.veryLightGreen}>
 
-                {
-                    (fill)=><View style={{alignItems:"center"}}>
-                        <Text style={{fontSize:20,color:colors.darkGreen}}>Rounds: {chantInfo.count}</Text>
-                        <Text style={{fontSize:60, fontWeight:"bold",color:colors.darkGreen}}>{beads}</Text>
+                    {
+                        (fill) => <View style={{alignItems: "center"}}>
+                            <Text style={{fontSize: 20, color: colors.darkGreen}}>Rounds: {chantInfo.count}</Text>
+                            <Text style={{fontSize: 60, fontWeight: "bold", color: colors.darkGreen}}>{beads}</Text>
 
-                    </View>
-                }
-            </AnimatedCircularProgress>
+                        </View>
+                    }
+                </AnimatedCircularProgress>
 
             </View>
             <View style={styles.downPart}>
@@ -216,14 +223,14 @@ const styles = StyleSheet.create({
         fontSize: 40,
         color: colors.lightGreen,
         fontWeight: "bold",
-        marginBottom:10,
+        marginBottom: 10,
     },
     time: {
         marginTop: 40,
         alignItems: "center",
         borderColor: colors.lightWhite,
-        backgroundColor:colors.lightGreen,
-        borderWidth:2,
+        backgroundColor: colors.lightGreen,
+        borderWidth: 2,
         borderRadius: 24,
         // elevation:1,
         padding: 20,

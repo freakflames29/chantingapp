@@ -1,5 +1,14 @@
 import React, {useEffect, useState, useRef, useLayoutEffect} from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import {
+    Button,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
+} from "react-native";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
@@ -83,7 +92,12 @@ const HomeScreen = ({navigation}) => {
 
                 dispatch(chantActions.setChant(data[0]))
             } else {
-                const init = {count: 0}
+                const init = {
+                    id: 0,
+                    count: 0,
+                    date: "",
+                    time: "0"
+                }
                 dispatch(chantActions.setChant(init))
             }
         }
@@ -180,16 +194,21 @@ const HomeScreen = ({navigation}) => {
                             </View>
 
 
-                            <View style={styles.chantRecords}>
+                            <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                navigation.navigate("records")
+                            }}>
+                                <View style={styles.chantRecords}>
 
-                                <Text style={{
-                                    fontSize: 20,
-                                    color: "white",
-                                    fontWeight:"bold",
-                                    
-                                }}>Chant Records</Text>
-                                <Octicons name="graph" size={24} color="white"/>
-                            </View>
+                                    <Text style={{
+                                        fontSize: 20,
+                                        color: "white",
+                                        fontWeight: "bold",
+
+                                    }}>Chant Records</Text>
+                                    <Octicons name="graph" size={24} color="white"/>
+                                </View>
+                            </TouchableOpacity>
+
                         </View>
                     </WorkArea>
                     <StatusBar style={"dark"}/>
@@ -243,7 +262,7 @@ const styles = StyleSheet.create({
 
         backgroundColor: colors.lightWhite,
         flexGrow: 1,
-        paddingBottom:100,
+        paddingBottom: 100,
 
     }, heading: {
         fontSize: 40, fontWeight: "bold", letterSpacing: -1,

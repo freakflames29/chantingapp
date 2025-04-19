@@ -22,7 +22,7 @@ const ChantScreen = () => {
     const userInfo = useSelector(state => state.userReducer.info)
 
 
-    const {startStop, formatTime, isRunning, reset} = useTimer()
+    const {startStop, formatTime, isRunning, reset, getTotalMinutes} = useTimer()
 
 
     const dispatch = useDispatch()
@@ -36,18 +36,28 @@ const ChantScreen = () => {
     }
 
     const updateChant = async () => {
-        startStop()
+        if (isRunning) {
+
+            startStop()
+        }
+        // console.log("Int ",chantInfo.time)
+        // console.log("Total min ",getTotalMinutes())
+        const newTime = parseInt(chantInfo.time) + getTotalMinutes()
+
         const payload = {
             count: chantInfo.count,
             date: `${date}`,
-            time: `${formatTime()}`
+            time: `${newTime}`
         }
+        console.log(payload)
+
         const res = await axios.post(`${ROOT_URL}count/`, payload, {
             headers: {
                 Authorization: `Token ${userInfo.token}`,
                 "X-Authorization": `Token ${userInfo.token}`,
             }
         })
+
 
         return res.data
 
@@ -71,7 +81,7 @@ const ChantScreen = () => {
             {isSuccess && <Toast textColor={colors.darkGreen} msg={"Data updated succesfully"} iconName={"check"}/>}
 
             <View style={styles.topPart}>
-                <HeadingText text={"Japa Tracker"} size={40} color={"white"} style={{marginBottom: 30,marginTop:30}}/>
+                <HeadingText text={"Japa Tracker"} size={40} color={"white"} style={{marginBottom: 30, marginTop: 30}}/>
                 <Text style={{fontSize: 20, color: "white"}}>Rounds</Text>
                 <Text style={styles.countText}>{chantInfo.count}</Text>
             </View>

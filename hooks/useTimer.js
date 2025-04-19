@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import {useState, useEffect} from "react";
 
 const useTimer = () => {
     const [seconds, setSeconds] = useState(0);
@@ -43,13 +43,21 @@ const useTimer = () => {
         setIsRunning(false);
     };
 
-       const formatTime = () => {
+    const formatTime = () => {
         const formattedHours = String(hours).padStart(2, '0');
         const formattedMinutes = String(minutes).padStart(2, '0');
         const formattedSeconds = String(seconds).padStart(2, '0');
         return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     };
 
-    return {startStop,reset,isRunning,formatTime}
+    const getTotalMinutes = () => {
+        return hours * 60 + minutes;
+    };
+
+    const getTotalSeconds = () => {
+        return hours * 3600 + minutes * 60 + seconds;
+    };
+
+    return {startStop, reset, isRunning, formatTime,getTotalMinutes,getTotalSeconds}
 }
-export  default useTimer;
+export default useTimer;
