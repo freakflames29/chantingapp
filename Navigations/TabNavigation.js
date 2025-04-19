@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-
+import {Text} from "react-native";
 import SignupScreen from "../Screens/SignupScreen";
 import HomeScreen from "../Screens/HomeScreen";
 import ChantScreen from "../Screens/ChantScreen";
@@ -23,9 +23,9 @@ const TabNavigation = () => {
                     bottom: 20,
                     paddingBottom: 0,
                     borderRadius: 50,
-                    height: 80,
+                    height: 90,
                     borderCurve:"circular",
-                    backgroundColor:colors.darkGreen
+                    backgroundColor:colors.black
 
                 },
                 tabBarIconStyle: {
@@ -43,27 +43,27 @@ const TabNavigation = () => {
             <Tab.Screen name={"home"} component={HomeScreen}
                         options={{
                             tabBarLabel: () => null,
-                            tabBarIcon: ({focused}) => <TabBarIcon name={"home"} focused={focused}/>
+                            tabBarIcon: ({focused}) => <TabBarIcon name={"home"} focused={focused} label={"Home"}/>
                         }}
 
             />
             <Tab.Screen name={"chant"} component={ChantScreen}
                         options={{
                             tabBarLabel: () => null,
-                            tabBarIcon: ({focused}) => <TabBarIcon name={"beads"} focused={focused} />
+                            tabBarIcon: ({focused}) => <TabBarIcon name={"beads"} focused={focused} label={"Chant"} />
                         }}
 
             />
             <Tab.Screen name={"satsang"} component={Satasang}
                         options={{
                             tabBarLabel: () => null,
-                            tabBarIcon: ({focused}) => <TabBarIcon name={"search"} focused={focused}/>
+                            tabBarIcon: ({focused}) => <TabBarIcon name={"search"} focused={focused} label={"Satsang"}/>
                         }}
             />
             <Tab.Screen name={"profile"} component={MyProfile}
                         options={{
                             tabBarLabel: () => null,
-                            tabBarIcon: ({focused}) => <TabBarIcon name={"user"} focused={focused}/>
+                            tabBarIcon: ({focused}) => <TabBarIcon name={"user"} focused={focused} label={"Profile"}/>
                         }}
 
             />
