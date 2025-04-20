@@ -72,26 +72,6 @@ const ChantRecordsScreen = () => {
         <>
             {isLoading ? <Loading/> :
                 <>
-                    {/*<View style={styles.topArea}>*/}
-                    {/*    <WorkArea style={styles.workArea}>*/}
-
-                    {/*        <Text style={{*/}
-                    {/*            fontSize: 30,*/}
-                    {/*            fontWeight: "600",*/}
-
-                    {/*        }}>Total Days: 3</Text>*/}
-                    {/*        <Text style={{*/}
-                    {/*            fontSize: 30,*/}
-                    {/*            fontWeight: "600",*/}
-
-                    {/*        }}>Total Hours: 10hr 40min</Text>*/}
-                    {/*    </WorkArea>*/}
-                    {/*</View>*/}
-
-
-                    {/*<View style={{marginTop: 20, gap: 20, paddingHorizontal: 20,}}>*/}
-
-
                     <FlatList data={data}
                               ListHeaderComponent={
                                   <View style={styles.topArea}>
@@ -118,6 +98,7 @@ const ChantRecordsScreen = () => {
                                       <CountBar count={item.count} hour={item.time}/>
                                   </View>
                               )}
+                              showsVerticalScrollIndicator={false}
                     />
 
 

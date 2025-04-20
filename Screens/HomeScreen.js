@@ -24,6 +24,7 @@ import axios from "axios";
 import {ROOT_URL} from "../config/Constants";
 import Loading from "../Components/Loading";
 import Octicons from '@expo/vector-icons/Octicons';
+import HeadingText from "../Components/HeadingText";
 
 
 const HomeScreen = ({navigation}) => {
@@ -210,7 +211,26 @@ const HomeScreen = ({navigation}) => {
                             </TouchableOpacity>
 
                         </View>
+
+
+                        {/*  Wisdom quote  */}
+
+                        <View style={styles.wisdomBox}>
+                            <HeadingText text={"Daily wisdom"} size={30} style={{
+                                letterSpacing: 0,
+                                fontWeight: "700",
+
+                            }}/>
+                            <Text style={{
+                                fontSize: 20,
+                                letterSpacing: 1
+                            }}>All created beings are unmanifest in their beginning, manifest in their interim state,
+                                and unmanifest again when annihilated. So what need is there for lamentation?</Text>
+                        </View>
+
                     </WorkArea>
+
+
                     <StatusBar style={"dark"}/>
                 </ScrollView>
 
@@ -292,6 +312,23 @@ const styles = StyleSheet.create({
         gap: 10,
 
     },
+
+    wisdomBox: {
+        width: "100%",
+        height: 250,
+        marginTop: 20,
+        backgroundColor: colors.lightBg,
+        borderRadius: 25,
+        padding: 20,
+        marginBottom: 80,
+        gap: 20,
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        overflow: "hidden",
+        flexDirection: "row",
+
+    }
 })
 export default HomeScreen;
 
