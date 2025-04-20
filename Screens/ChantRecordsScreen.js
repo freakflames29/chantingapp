@@ -9,11 +9,14 @@ import {ROOT_URL} from "../config/Constants";
 import {useQuery} from "@tanstack/react-query";
 import Loading from "../Components/Loading";
 import {chantActions} from "../redux/chantSlice";
+
 import {StatusBar} from "expo-status-bar";
 
 const ChantRecordsScreen = () => {
 
     const userInfo = useSelector(state => state.userReducer.info)
+
+    const allCount = useSelector(state => state.chantReducer.allCount)
 
     const dispatch = useDispatch()
 
@@ -32,6 +35,22 @@ const ChantRecordsScreen = () => {
         queryFn: fetchAllCount
     })
 
+
+    const calculateTime = () => {
+        let time = 0;
+        allCount.forEach((itm) => {
+            time += parseInt(itm.time)
+        })
+        // console.log("time:=== ",time)
+        if (time < 60) {
+            return `${time}min`
+        }
+        let hour = Math.round(time / 60)
+        let min = time % 60
+        return `${hour}hr ${min}min`
+    }
+
+
     useEffect(() => {
         if (data) {
             console.log(data)
@@ -47,6 +66,7 @@ const ChantRecordsScreen = () => {
     if (isError) {
         console.log("Error while loading the all count ", error)
     }
+
 
     return (
         <>
@@ -81,12 +101,12 @@ const ChantRecordsScreen = () => {
                                               fontSize: 30,
                                               fontWeight: "600",
 
-                                          }}>Total Days: 3</Text>
+                                          }}>Total Days: {data.length}</Text>
                                           <Text style={{
                                               fontSize: 30,
                                               fontWeight: "600",
 
-                                          }}>Total Hours: 10hr 40min</Text>
+                                          }}>Total Time: {calculateTime()}</Text>
                                       </WorkArea>
                                   </View>
                               }
@@ -95,7 +115,7 @@ const ChantRecordsScreen = () => {
                               renderItem={({item}) => (
                                   <View style={{paddingHorizontal: 20}}>
 
-                                      <CountBar count={item.count}/>
+                                      <CountBar count={item.count} hour={item.time}/>
                                   </View>
                               )}
                     />
@@ -112,7 +132,7 @@ const styles = StyleSheet.create({
 
 
     topArea: {
-        top:0,
+        top: 0,
         // height: 250,
         width: "100%",
         borderBottomLeftRadius: 54,

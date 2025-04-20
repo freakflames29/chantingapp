@@ -41,7 +41,7 @@ const CountBar = ({bgColor, textColor = "white", count, hour}) => {
             fontSize: 20,
             color: textColor
 
-        }}>1hr 20min</Text>
+        }}>{hour} min</Text>
     </View>);
 };
 const styles = StyleSheet.create({
