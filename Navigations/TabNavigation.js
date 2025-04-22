@@ -9,6 +9,7 @@ import MyProfile from "../Screens/MyProfile";
 import TabBarIcon from "../Components/TabBarIcon";
 import colors from "../config/colors";
 import HomeNavigation from "./HomeNavigation";
+import SatsangNavigations from "./SatsangNavigations";
 
 const Tab = createBottomTabNavigator()
 
@@ -55,8 +56,9 @@ const TabNavigation = () => {
                         }}
 
             />
-            <Tab.Screen name={"satsang"} component={Satasang}
+            <Tab.Screen name={"satsangNavigator"} component={SatsangNavigations}
                         options={{
+
                             tabBarLabel: () => null,
                             tabBarIcon: ({focused}) => <TabBarIcon name={"search"} focused={focused} label={"Satsang"}/>
                         }}

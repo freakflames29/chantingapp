@@ -1,13 +1,6 @@
 import React, {useEffect, useState, useRef, useLayoutEffect} from 'react';
 import {
-    Button,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
+    Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View
 } from "react-native";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
 import {useSelector} from "react-redux";
@@ -94,10 +87,7 @@ const HomeScreen = ({navigation}) => {
                 dispatch(chantActions.setChant(data[0]))
             } else {
                 const init = {
-                    id: 0,
-                    count: 0,
-                    date: "",
-                    time: "0"
+                    id: 0, count: 0, date: "", time: "0"
                 }
                 dispatch(chantActions.setChant(init))
             }
@@ -122,126 +112,119 @@ const HomeScreen = ({navigation}) => {
     }, [chantInfo.count]);
 
 
-    return (
-        <>
-            {isLoading ? <Loading/> :
-                <ScrollView contentContainerStyle={styles.scrollView}>
-                    <Image
-                        source={require("../assets/lotus.png")}
-                        resizeMode={"contain"}
-                        style={styles.imgStyle}
-                    />
+    return (<>
+            {isLoading ? <Loading/> : <ScrollView contentContainerStyle={styles.scrollView}>
+                <Image
+                    source={require("../assets/lotus.png")}
+                    resizeMode={"contain"}
+                    style={styles.imgStyle}
+                />
 
-                    <WorkArea style={styles.workArea}>
-                        <View style={styles.container}>
-                            <Text style={styles.subHeading}>{formattedDate}</Text>
+                <WorkArea style={styles.workArea}>
+                    <View style={styles.container}>
+                        <Text style={styles.subHeading}>{formattedDate}</Text>
 
-                            <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
+                        <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
 
-                            <View style={styles.countContainer}>
+                        <View style={styles.countContainer}>
 
-                                <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Today rounds</Text>
-                                <View style={{
-                                    flexDirection: "row", justifyContent: "space-between",
+                            <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Today rounds</Text>
+                            <View style={{
+                                flexDirection: "row", justifyContent: "space-between",
 
-                                }}>
-                                    <Text
-                                        style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
+                            }}>
+                                <Text
+                                    style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
 
-                                    <Image
-                                        source={require("../assets/chant.png")}
-                                        style={{
-                                            width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
-                                        }}
+                                <Image
+                                    source={require("../assets/chant.png")}
+                                    style={{
+                                        width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
+                                    }}
 
-                                    />
-                                </View>
+                                />
+                            </View>
+                            <View
+
+                                style={[styles.progressbarOutside, {
+                                    borderRadius: 500, backgroundColor: progressBackground,
+                                }]}>
                                 <View
 
-                                    style={[styles.progressbarOutside, {
-                                        borderRadius: 500, backgroundColor: progressBackground,
-                                    }]}>
-                                    <View
-
-                                        style={[styles.progressBarInside, {
-                                            borderRadius: 500,
-                                            width: `${progressValue}%`,
-                                            backgroundColor: progressForeground,
-                                        }]}/>
-                                </View>
-
+                                    style={[styles.progressBarInside, {
+                                        borderRadius: 500,
+                                        width: `${progressValue}%`,
+                                        backgroundColor: progressForeground,
+                                    }]}/>
                             </View>
-
-
-                            <View style={{flexDirection: "row", gap: 10, marginTop: 20,}}>
-                                <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
-                                            bgColor={colors.blue}
-                                            textColor={"white"}
-                                            iconColor={"white"}
-                                            onPress={() => {
-                                                navigation.navigate("chant")
-                                            }}
-                                />
-
-                                <ActionCard title={"Digital Chanter"} buttonText={"Chnat now"}
-                                            bgColor={colors.lightGreen}
-                                            textColor={"white"}
-                                            iconColor={"white"}
-                                            onPress={() => {
-                                                navigation.navigate("digitalChant")
-                                            }}
-                                />
-
-                            </View>
-
-
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => {
-                                navigation.navigate("records")
-                            }}>
-                                <View style={styles.chantRecords}>
-
-                                    <Text style={{
-                                        fontSize: 20,
-                                        color: "white",
-                                        fontWeight: "bold",
-
-                                    }}>Chant Records</Text>
-                                    <Octicons name="graph" size={24} color="white"/>
-                                </View>
-                            </TouchableOpacity>
 
                         </View>
 
 
-                        {/*  Wisdom quote  */}
+                        <View style={{flexDirection: "row", gap: 10, marginTop: 20,}}>
+                            <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
+                                        bgColor={colors.blue}
+                                        textColor={"white"}
+                                        iconColor={"white"}
+                                        onPress={() => {
+                                            navigation.navigate("chant")
+                                        }}
+                            />
 
-                        <View style={styles.wisdomBox}>
-                            <HeadingText text={"Daily wisdom"} size={30} style={{
-                                letterSpacing: 0,
-                                fontWeight: "700",
+                            <ActionCard title={"Digital Chanter"} buttonText={"Chnat now"}
+                                        bgColor={colors.lightGreen}
+                                        textColor={"white"}
+                                        iconColor={"white"}
+                                        onPress={() => {
+                                            navigation.navigate("digitalChant")
+                                        }}
+                            />
 
-                            }}/>
-                            <Text style={{
-                                fontSize: 20,
-                                letterSpacing: 1
-                            }}>All created beings are unmanifest in their beginning, manifest in their interim state,
-                                and unmanifest again when annihilated. So what need is there for lamentation?</Text>
                         </View>
 
-                    </WorkArea>
+
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                            navigation.navigate("records")
+                        }}>
+
+                            <View style={styles.chantRecords}>
+                                <Octicons name="graph" size={24} color="white"/>
+                                <Text style={{
+                                    fontSize: 20, color: "white", fontWeight: "bold",
+
+                                }}>Chant Records</Text>
+
+                            </View>
+                        </TouchableOpacity>
+
+                    </View>
 
 
+                    {/*  Wisdom quote  */}
+
+                    <View style={styles.wisdomBox}>
+                        <HeadingText text={"Daily wisdom"} size={30} style={{
+                            letterSpacing: 0, fontWeight: "700",
+
+                        }}/>
+                        <Text style={{
+                            fontSize: 20, letterSpacing: 1
+                        }}>All created beings are unmanifest in their beginning, manifest in their interim state,
+                            and unmanifest again when annihilated. So what need is there for lamentation?</Text>
+                    </View>
                     <StatusBar style={"dark"}/>
-                </ScrollView>
 
-            }</>
-    );
+                </WorkArea>
+
+
+            </ScrollView>
+
+            }</>);
 };
 const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
-    },
-    countContainer: {
+    }, countContainer: {
         marginTop: "10%",
         width: "100%",
         height: 250,
@@ -280,9 +263,7 @@ const styles = StyleSheet.create({
 
     }, scrollView: {
 
-        backgroundColor: colors.lightWhite,
-        flexGrow: 1,
-        paddingBottom: 100,
+        backgroundColor: colors.lightWhite, flexGrow: 1, paddingBottom: 100,
 
     }, heading: {
         fontSize: 40, fontWeight: "bold", letterSpacing: -1,
@@ -294,18 +275,15 @@ const styles = StyleSheet.create({
     },
 
     workArea: {
-        flex: 1,
-        padding: 25,
+        flex: 1, padding: 25,
 
-    },
-    chantRecords: {
+    }, chantRecords: {
         marginTop: 20,
         borderRadius: 20,
         width: "100%",
-        height: 60,
+        height: 80,
         paddingHorizontal: 25,
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: "center", // justifyContent: "space-between",
         // justifyContent: "center",
         backgroundColor: colors.darkBlue,
         flexDirection: "row",
