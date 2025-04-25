@@ -14,7 +14,12 @@ const SatsangNavigations = () => {
         }}>
             <Stack.Screen name={"satsang"} component={Satasang}/>
             <Stack.Screen name={"satsangCreate"} component={SatSangCreateScreen}/>
-            <Stack.Screen name={"satsangDetails"} component={SatSangDetailsScreen}/>
+            <Stack.Screen name={"satsangDetails"} component={SatSangDetailsScreen} options={
+                        ({route})=>({
+                            headerShown:true,
+                            headerTitle: "All Posts"//oute.params?.item.title
+                        })
+            }/>
         </Stack.Navigator>
     );
 };

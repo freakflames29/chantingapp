@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {allPostActions} from "../redux/allPostSlice";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import PostCard from "../Components/PostCard";
+import {StatusBar} from "expo-status-bar";
 
 const Satasang = ({navigation}) => {
 
@@ -26,7 +27,7 @@ const Satasang = ({navigation}) => {
         return res.data
     }
 
-    const {data, isError, error, isLoading} = useQuery({
+    const {data, isError, error, isLoading,refetch,isRefetching} = useQuery({
         queryKey: ["fetchAllPost"], queryFn: fetchAllPost
     })
 
@@ -72,6 +73,8 @@ const Satasang = ({navigation}) => {
                 paddingHorizontal:20,
 
             }}
+            refreshing={isRefetching}
+            onRefresh={refetch}
             showsVerticalScrollIndicator={false}
             style={{
                 width:"100%",
@@ -85,8 +88,11 @@ const Satasang = ({navigation}) => {
                     image={item.image}
                     desc={item.desc}
                     username={item.user.username}
+                    onPress={()=>navigation.navigate("satsangDetails", {item})}
+
                 />
             )}/>
+        <StatusBar style={"dark"}/>
     </WorkArea>);
 };
 

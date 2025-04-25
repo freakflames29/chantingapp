@@ -3,11 +3,12 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import WorkArea from "./WorkArea";
 import colors from "../config/colors";
-const PostCard = ({image,username,desc}) => {
+const PostCard = ({image,username,desc,onPress}) => {
     return (
         <View>
             <TouchableOpacity
                 activeOpacity={0.6}
+                onPress={onPress}
                 style={styles.cardContainer}>
                 {image && <View style={styles.imageDiv}>
                     <Image
@@ -33,7 +34,7 @@ const PostCard = ({image,username,desc}) => {
                         fontSize: 20,
                         marginBottom: 10,
                         opacity: 0.5
-                    }}>{username}</Text>
+                    }}>@{username}</Text>
                     <Text style={{
                         fontSize: 22,
                     }}>{desc}</Text>
@@ -50,12 +51,13 @@ const styles = StyleSheet.create({
         // padding:20,
         borderRadius: 24,
         backgroundColor: colors.lightBg,
+        overflow:"hidden"
 
     },
     imageDiv: {
         width: "100%",
         aspectRatio: 1.5,
-        padding:20,
+        // padding:20,
     }
     // height:"40%",
     //    backgroundColor:"blue"
