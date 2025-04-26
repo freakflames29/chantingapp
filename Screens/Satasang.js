@@ -5,7 +5,6 @@ import Loading from "../Components/Loading";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import colors from "../config/colors";
 
-import * as ImagePicker from "expo-image-picker"
 import axios from "axios";
 import {ROOT_URL} from "../config/Constants";
 import {useMutation, useQuery} from "@tanstack/react-query";
@@ -15,6 +14,7 @@ import {allPostActions} from "../redux/allPostSlice";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import PostCard from "../Components/PostCard";
 import {StatusBar} from "expo-status-bar";
+import {useNavigation} from "@react-navigation/native";
 
 const Satasang = ({navigation}) => {
 
@@ -27,9 +27,12 @@ const Satasang = ({navigation}) => {
         return res.data
     }
 
-    const {data, isError, error, isLoading,refetch,isRefetching} = useQuery({
+    const {data, isError, error, isLoading, refetch, isRefetching} = useQuery({
         queryKey: ["fetchAllPost"], queryFn: fetchAllPost
     })
+
+
+
 
 
     useEffect(() => {
@@ -48,7 +51,7 @@ const Satasang = ({navigation}) => {
         console.log("Error fetching all post ", error.message)
     }
 
-    return (<WorkArea style={{flex: 1,padding:0}}>
+    return (<WorkArea style={{flex: 1, padding: 0}}>
         <TouchableOpacity
             activeOpacity={0.6}
             style={styles.createContainer}
@@ -67,19 +70,20 @@ const Satasang = ({navigation}) => {
 
         <FlatList
             contentContainerStyle={{
-                marginTop:20,
+                marginTop: 20,
                 paddingBottom: 200,
-                width:"100%",
-                paddingHorizontal:20,
+                width: "100%",
+                paddingHorizontal: 20,
 
             }}
             refreshing={isRefetching}
             onRefresh={refetch}
             showsVerticalScrollIndicator={false}
             style={{
-                width:"100%",
+                width: "100%",
 
             }}
+
             ItemSeparatorComponent={() => <View style={{height: 20}}/>}
             data={allPost}
             keyExtractor={(post) => post.id.toString()}
@@ -88,7 +92,7 @@ const Satasang = ({navigation}) => {
                     image={item.image}
                     desc={item.desc}
                     username={item.user.username}
-                    onPress={()=>navigation.navigate("satsangDetails", {item})}
+                    onPress={() => navigation.navigate("satsangDetails", {item})}
 
                 />
             )}/>
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         gap: 20,
 
-        marginHorizontal:20,
+        marginHorizontal: 20,
 
     }, iconDiv: {
         width: 45,

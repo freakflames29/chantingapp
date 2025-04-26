@@ -7,7 +7,7 @@ const AppTextInput = ({style, icon, iconColor, ...otherProps}) => {
     return (
         <View style={styles.container}>
             <MaterialIcons name={icon} size={24} color={iconColor}/>
-            <TextInput  {...otherProps} style={[styles.textStyle, style]}/>
+            <TextInput  {...otherProps} style={[styles.textStyle, style]} />
         </View>
     );
 };

@@ -17,6 +17,7 @@ const TabNavigation = () => {
     return (
         <Tab.Navigator id={1} screenOptions={
             {
+                tabBarHideOnKeyboard:true,
                 headerShown: false,
                 tabBarIcon: () => null,
                 tabBarStyle: {
@@ -35,6 +36,7 @@ const TabNavigation = () => {
                     alignItems: "center",
                     flex: 1
                 },
+
             }
 
         }

@@ -39,7 +39,7 @@ const SatSangDetailsScreen = ({route}) => {
                 <Text style={{fontSize:18}}>@{itemInfo.user.username}</Text>
                 <Text>Posted: {timeAgo()}</Text>
                 <Text style={styles.text}>{itemInfo.title}</Text>
-                <Text style={{fontSize:20}}>{itemInfo.desc}</Text>
+                <Text style={styles.desc}>{itemInfo.desc}</Text>
             </View>
             <StatusBar style={"dark"}/>
         </>
@@ -51,8 +51,10 @@ const styles = StyleSheet.create({
         textAlign:"left",
         fontSize:50,
         // textTransform:"capitalize",
-        fontWeight:"bold"
-    }
+        fontWeight:"bold",
+        paddingVertical:10,
+    },
+    desc:{fontSize:20,paddingBottom:10}
 })
 
 export default SatSangDetailsScreen;

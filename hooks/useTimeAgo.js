@@ -13,7 +13,7 @@ const useTimeAgo = (timestamp) => {
         if (days > 0) {
             return `${days} day${days > 1 ? 's' : ''} ago`;
         } else if (hours > 0) {
-            return `${hours} hr${hours > 1 ? 's' : ''} ago, ${minutes}min${minutes > 1 ? 's' : ''} ago`;
+            return `${hours} hr${hours > 1 ? 's' : ''},${minutes}min${minutes > 1 ? 's' : ''} ago`;
         } else {
             return `${minutes} min${minutes > 1 ? 's' : ''} ago`;
         }
