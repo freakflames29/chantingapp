@@ -60,7 +60,7 @@ const SatSangCreateScreen = ({navigation}) => {
             formdata.append("image", {
                 uri: img.uri,
                 name: img.fileName || `photo_${Date.now()}.jpg`,
-                type: img.type || "image/jpeg"
+                type: img.mimeType || "image/jpeg"
 
             })
             console.log("Formdata image ", img.uri)
