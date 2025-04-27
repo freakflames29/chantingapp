@@ -21,7 +21,7 @@ const Toast = ({textColor, msg,iconName}) => {
 
                 <Entypo name={iconName} size={24} color={textColor} />
                 <Text style={{
-                    fontSize: 20,
+                    fontSize: 15,
                     color: textColor
                 }}>{msg}</Text>
             </View>}
@@ -30,7 +30,7 @@ const Toast = ({textColor, msg,iconName}) => {
 };
 const styles = StyleSheet.create({
     container: {
-        width: "80%",
+        width: "90%",
         height: 70,
         zIndex: 100,
         backgroundColor: 'white',

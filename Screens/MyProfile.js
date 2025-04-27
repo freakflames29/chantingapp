@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     listCard: {
         width: "100%",
-        height: "auto",
+        height: 100,
         alignItems:"center",
         // justifyContent: "center",
         backgroundColor: colors.lightBg,

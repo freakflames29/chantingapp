@@ -1,5 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {
+    Button,
+    Image,
+    KeyboardAvoidingView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import WorkArea from "../Components/WorkArea";
 import colors from "../config/colors";
 import * as ImagePicker from "expo-image-picker"
@@ -10,8 +20,9 @@ import AppButton from "../Components/AppButton";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {ROOT_URL} from "../config/Constants";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Platform} from "react-native";
+import Toast from "../Components/Toast";
 
 const SatSangCreateScreen = ({navigation}) => {
     const [img, setImg] = useState(null)
@@ -19,6 +30,8 @@ const SatSangCreateScreen = ({navigation}) => {
 
     const [title, setTitle] = useState()
     const [desc, setDesc] = useState()
+    const qclient = useQueryClient()
+
 
     const pickImg = async () => {
         try {
@@ -75,12 +88,17 @@ const SatSangCreateScreen = ({navigation}) => {
     const {mutate, isPending, isError, error, isSuccess} = useMutation({
         mutationKey: ["uploadToServer"],
         mutationFn: uploadToServer,
+        onSuccess:()=> {
+            qclient.invalidateQueries({queryKey: ["fetchAllPost"]})
+            navigation.navigate("satsang")
+        }
     })
 
     if (isError) {
         console.log("Error in posting ", error)
     }
     if (isSuccess) {
+
         console.log("Sucess in posting")
 
     }
@@ -88,6 +106,9 @@ const SatSangCreateScreen = ({navigation}) => {
 
     return (
         <WorkArea>
+
+            {isSuccess &&  <Toast msg={"Posted successfully"} iconName={"check"} textColor={colors.darkGreen}/>}
+            {isError &&  <Toast msg={error.message} iconName={"circle-with-cross"} textColor={colors.red} />}
 
             <HeadingText
                 text={"Share your learning"}
@@ -113,7 +134,7 @@ const SatSangCreateScreen = ({navigation}) => {
                     numberOfLines={10}
                     autoCapitalize={"none"}
                     multiline={true}
-                    style={{height: 200,}}
+                    style={styles.bigTextBox}
                 />
 
                 {img &&
@@ -157,7 +178,15 @@ const styles = StyleSheet.create({
         gap: 10,
         paddingBottom: 200,
         flexGrow: 1,
-        alignItems: "center"
+        // alignItems: "center"
+    },
+    bigTextBox:{
+        height:200,
+        // justifyContent:"flex-start",
+        // alignItems:"flex-start",
+        flex:1,
+        textAlignVertical:"top"
+
     },
     cardContainer: {
         width: "100%",

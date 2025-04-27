@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import WorkArea from "../Components/WorkArea";
 import {StatusBar} from "expo-status-bar";
 import colors from "../config/colors";
@@ -10,7 +10,12 @@ const SatSangDetailsScreen = ({route}) => {
 
     const timeAgo = useTimeAgo(itemInfo.created_at)
     return (
-        <>
+
+        <ScrollView contentContainerStyle={{
+            paddingBottom:100,
+            flexGrow:1,
+
+        }}>
 
             {itemInfo.image &&
                 <Image
@@ -41,8 +46,10 @@ const SatSangDetailsScreen = ({route}) => {
                 <Text style={styles.text}>{itemInfo.title}</Text>
                 <Text style={styles.desc}>{itemInfo.desc}</Text>
             </View>
+
             <StatusBar style={"dark"}/>
-        </>
+        </ScrollView>
+
 
     );
 };
@@ -53,6 +60,7 @@ const styles = StyleSheet.create({
         // textTransform:"capitalize",
         fontWeight:"bold",
         paddingVertical:10,
+
     },
     desc:{fontSize:20,paddingBottom:10}
 })
