@@ -25,13 +25,16 @@ import AppButton from "../Components/AppButton";
 import LinearGradient from 'react-native-linear-gradient';
 import HeadingText from "../Components/HeadingText";
 import TouchableText from "../Components/TouchableText";
+import Toast from "../Components/Toast";
 
 
 const SignupScreen = ({navigation}) => {
 
-    const [email, setEmail] = useState()
-    const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const [fillBox, setFillBox] = useState(false)
 
 
     const dispatch = useDispatch()
@@ -66,6 +69,15 @@ const SignupScreen = ({navigation}) => {
         }
     }
 
+    const makeSignupRequest = () => {
+        if (username !== "" && email !== "" && password !== "") {
+            setFillBox(!fillBox)
+            mutate()
+        } else {
+            setFillBox(!fillBox)
+        }
+    }
+
     useEffect(() => {
 
 
@@ -79,11 +91,10 @@ const SignupScreen = ({navigation}) => {
 
     return (
 
-        <ScrollView contentContainerStyle={styles.backGround}
+        <ScrollView contentContainerStyle={styles.backGround}>
 
-        >
-
-
+            {fillBox && <Toast msg={"Pls fill the details properly"} textColor={"red"} iconName={"circle-with-cross"}/>}
+            {isError && <Toast msg={error.message} textColor={"red"} iconName={"circle-with-cross"}/>}
             <ImageBackground
                 source={require("../assets/loginpng.png")}
                 // resizeMode={"cover"}
@@ -127,9 +138,7 @@ const SignupScreen = ({navigation}) => {
                     style={styles.btnStyle}
                     underlayColor={colors.darkBlue}
                     textColor={"white"}
-                    onPress={() => {
-                        mutate()
-                    }}
+                    onPress={makeSignupRequest}
                 />
 
 

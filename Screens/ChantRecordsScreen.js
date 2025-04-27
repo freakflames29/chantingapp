@@ -4,7 +4,7 @@ import WorkArea from "../Components/WorkArea";
 import colors from "../config/colors";
 import CountBar from "../Components/CountBar";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
+import axios, {all} from "axios";
 import {ROOT_URL} from "../config/Constants";
 import {useQuery} from "@tanstack/react-query";
 import Loading from "../Components/Loading";
@@ -17,6 +17,7 @@ const ChantRecordsScreen = () => {
     const userInfo = useSelector(state => state.userReducer.info)
 
     const allCount = useSelector(state => state.chantReducer.allCount)
+    // console.log("All count ",allCount)
 
     const dispatch = useDispatch()
 

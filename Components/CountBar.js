@@ -21,6 +21,7 @@ const CountBar = ({bgColor, textColor = "white", count, hour, date}) => {
         const convertedDate = new Date(date);
         const options = {day: 'numeric', month: 'long', year: 'numeric'};
         const formattedDate = convertedDate.toLocaleDateString('en-US', options);
+        // console.log("The formatted date ",date)
 
 
     return (<View style={{
