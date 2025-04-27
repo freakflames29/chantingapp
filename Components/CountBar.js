@@ -4,7 +4,8 @@ import colors from "../config/colors";
 
 const CountBar = ({bgColor, textColor = "white", count, hour}) => {
 
-    const width = Math.round((count / 16) * 100)
+    let width = Math.round((count / 16) * 100)
+    width = width > 100 ? 100 : width
     let bgC;
     if (count < 4) {
         bgC = colors.red

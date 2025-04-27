@@ -47,7 +47,7 @@ const MyPosts = () => {
                     marginTop: 20,
                     flex: 1
                 }}
-
+                showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                     gap: 20,
                     paddingBottom: 200
