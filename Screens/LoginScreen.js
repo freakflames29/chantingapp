@@ -13,15 +13,16 @@ import {useMutation} from "@tanstack/react-query";
 import {useDispatch} from "react-redux";
 import {userActions} from "../redux/userSlice";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
+import Toast from "../Components/Toast";
 
 
 const LoginScreen = ({navigation}) => {
-    const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [btnDisable, setBtnDisable] = useState(false)
 
 
     const dispatch = useDispatch()
-
 
 
     const setDataToStorage = async (data) => {
@@ -31,7 +32,7 @@ const LoginScreen = ({navigation}) => {
             console.log("Success storig the data to localstorage from login screen")
 
         } catch (e) {
-            console.log("Error saving to data to localstorage from loginscreen",e)
+            console.log("Error saving to data to localstorage from loginscreen", e)
         }
     }
 
@@ -50,16 +51,6 @@ const LoginScreen = ({navigation}) => {
 
     })
 
-    if (isError) {
-        console.log(error.message)
-        return <Text>Error came</Text>
-    }
-    if (data){
-        console.log("THe data is ",data)
-
-        setDataToStorage(data)
-    }
-
     useEffect(() => {
         if (isSuccess) {
             dispatch(userActions.setData(data))
@@ -68,8 +59,30 @@ const LoginScreen = ({navigation}) => {
     }, [isSuccess]);
 
 
+    const makeLoginReq = () => {
+        if (username !== "" && password !== "") {
+            mutate()
+        } else {
+            setBtnDisable(!btnDisable)
+        }
+    }
+
+
+    if (isError) {
+        console.log(error.message)
+        return <Text>Error came</Text>
+    }
+    if (data) {
+        console.log("THe data is ", data)
+
+        setDataToStorage(data)
+    }
+
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {btnDisable && <Toast msg={"Pls enter username and password"} iconName={"circle-with-cross"} textColor={"red"}/> }
+            {isError && <Toast msg={error.message} iconName={"circle-with-cross"} textColor={"red"}/>}
             <Image
                 source={require("../assets/signup.png")}
                 style={styles.imageStyle}
@@ -100,9 +113,8 @@ const LoginScreen = ({navigation}) => {
                     style={styles.btnStyle}
                     underlayColor={colors.darkGreen}
                     textColor={"white"}
-                    onPress={() => {
-                        mutate()
-                    }}
+                    disabled={btnDisable}
+                    onPress={makeLoginReq}
                 />
 
 

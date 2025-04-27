@@ -95,7 +95,7 @@ const ChantRecordsScreen = () => {
                               renderItem={({item}) => (
                                   <View style={{paddingHorizontal: 20}}>
 
-                                      <CountBar count={item.count} hour={item.time}/>
+                                      <CountBar count={item.count} hour={item.time} date={item.date}/>
                                   </View>
                               )}
                               showsVerticalScrollIndicator={false}

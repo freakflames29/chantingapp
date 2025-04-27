@@ -41,6 +41,7 @@ const MyPosts = () => {
     return (
         <View style={{flex: 1, paddingHorizontal: 20}}>
 
+
             <FlatList
                 ListHeaderComponent={<HeadingText text={"My posts"} size={40}/>}
                 style={{

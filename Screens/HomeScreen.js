@@ -29,6 +29,15 @@ const HomeScreen = ({navigation}) => {
 
     const [progressBackground, setProgressBackground] = useState()
     const [progressForeground, setProgressForground] = useState()
+    const [wisdom, setWisdom] = useState([])
+
+    let wisdomIndex = 0;
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
 
 
     const today = new Date();
@@ -69,14 +78,27 @@ const HomeScreen = ({navigation}) => {
 
     }
 
+    const fetchWisdom = async () => {
+        const res = await axios(`${ROOT_URL}wisdom/`)
+        return res.data
+    }
+
     const {data, error, isError, isLoading, isSuccess} = useQuery({
         queryKey: ["userChantCount"], queryFn: fetchUserCount, enabled: !!userInfo?.token
     })
 
+    const {
+        data: wisdomData,
+        error: wisdomError,
+        isLoading: wisdomLoading,
+        isError: isWisdomError,
+        isSuccess: wisdomSuc
+    } = useQuery({
+        queryKey: ["wisdom"],
+        queryFn: fetchWisdom,
 
-    if (isError) {
-        console.log("Error while fetching the count from home screen ", error)
-    }
+    })
+
 
     useEffect(() => {
 
@@ -112,114 +134,137 @@ const HomeScreen = ({navigation}) => {
     }, [chantInfo.count]);
 
 
+    useEffect(() => {
+
+        if (wisdomSuc) {
+            console.log(wisdomData)
+            setWisdom(wisdomData)
+        }
+    }, [wisdomSuc])
+
+    if (isWisdomError) {
+        console.log("Error fetching wisdom ", wisdomError)
+    }
+
+    if (isError) {
+        console.log("Error while fetching the count from home screen ", error)
+    }
+    if(wisdomLoading){
+        return <Loading/>
+    }
+    if (wisdomData){
+        wisdomIndex = getRandomInt(0,wisdomData.length)
+        console.log("Wisdom index ",wisdomIndex)
+    }
+
+
     return (<>
-            {isLoading ? <Loading/> : <ScrollView contentContainerStyle={styles.scrollView}>
-                <Image
-                    source={require("../assets/lotus.png")}
-                    resizeMode={"contain"}
-                    style={styles.imgStyle}
-                />
+        {isLoading || wisdomLoading ? <Loading/> : <ScrollView contentContainerStyle={styles.scrollView}>
+            <Image
+                source={require("../assets/lotus.png")}
+                resizeMode={"contain"}
+                style={styles.imgStyle}
+            />
 
-                <WorkArea style={styles.workArea}>
-                    <View style={styles.container}>
-                        <Text style={styles.subHeading}>{formattedDate}</Text>
+            <WorkArea style={styles.workArea}>
+                <View style={styles.container}>
+                    <Text style={styles.subHeading}>{formattedDate}</Text>
 
-                        <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
+                    <Text style={styles.heading}>Hare Krishna, {userInfo.username}</Text>
 
-                        <View style={styles.countContainer}>
+                    <View style={styles.countContainer}>
 
-                            <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Today rounds</Text>
-                            <View style={{
-                                flexDirection: "row", justifyContent: "space-between",
+                        <Text style={[styles.cardsubHeading, {color: progressBackground}]}>Today rounds</Text>
+                        <View style={{
+                            flexDirection: "row", justifyContent: "space-between",
 
-                            }}>
-                                <Text
-                                    style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
+                        }}>
+                            <Text
+                                style={[styles.cardHeading, {color: progressBackground}]}>{chantInfo.count}</Text>
 
-                                <Image
-                                    source={require("../assets/chant.png")}
-                                    style={{
-                                        width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
-                                    }}
+                            <Image
+                                source={require("../assets/chant.png")}
+                                style={{
+                                    width: 110, height: 110, position: "absolute", right: 0, bottom: 10,
+                                }}
 
-                                />
-                            </View>
+                            />
+                        </View>
+                        <View
+
+                            style={[styles.progressbarOutside, {
+                                borderRadius: 500, backgroundColor: progressBackground,
+                            }]}>
                             <View
 
-                                style={[styles.progressbarOutside, {
-                                    borderRadius: 500, backgroundColor: progressBackground,
-                                }]}>
-                                <View
-
-                                    style={[styles.progressBarInside, {
-                                        borderRadius: 500,
-                                        width: `${progressValue}%`,
-                                        backgroundColor: progressForeground,
-                                    }]}/>
-                            </View>
-
+                                style={[styles.progressBarInside, {
+                                    borderRadius: 500,
+                                    width: `${progressValue}%`,
+                                    backgroundColor: progressForeground,
+                                }]}/>
                         </View>
-
-
-                        <View style={{flexDirection: "row", gap: 10, marginTop: 20,}}>
-                            <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
-                                        bgColor={colors.blue}
-                                        textColor={"white"}
-                                        iconColor={"white"}
-                                        onPress={() => {
-                                            navigation.navigate("chant")
-                                        }}
-                            />
-
-                            <ActionCard title={"Digital Chanter"} buttonText={"Chnat now"}
-                                        bgColor={colors.lightGreen}
-                                        textColor={"white"}
-                                        iconColor={"white"}
-                                        onPress={() => {
-                                            navigation.navigate("digitalChant")
-                                        }}
-                            />
-
-                        </View>
-
-
-                        <TouchableOpacity activeOpacity={0.8} onPress={() => {
-                            navigation.navigate("records")
-                        }}>
-
-                            <View style={styles.chantRecords}>
-                                <Octicons name="graph" size={24} color="white"/>
-                                <Text style={{
-                                    fontSize: 20, color: "white", fontWeight: "bold",
-
-                                }}>Chant Records</Text>
-
-                            </View>
-                        </TouchableOpacity>
 
                     </View>
 
 
-                    {/*  Wisdom quote  */}
+                    <View style={{flexDirection: "row", gap: 10, marginTop: 20,}}>
+                        <ActionCard title={"Japa Tracker"} buttonText={"Add Round"}
+                                    bgColor={colors.blue}
+                                    textColor={"white"}
+                                    iconColor={"white"}
+                                    onPress={() => {
+                                        navigation.navigate("chant")
+                                    }}
+                        />
 
-                    <View style={styles.wisdomBox}>
-                        <HeadingText text={"Daily wisdom"} size={30} style={{
-                            letterSpacing: 0, fontWeight: "700",
+                        <ActionCard title={"Digital Chanter"} buttonText={"Chnat now"}
+                                    bgColor={colors.lightGreen}
+                                    textColor={"white"}
+                                    iconColor={"white"}
+                                    onPress={() => {
+                                        navigation.navigate("digitalChant")
+                                    }}
+                        />
 
-                        }}/>
-                        <Text style={{
-                            fontSize: 20, letterSpacing: 1
-                        }}>All created beings are unmanifest in their beginning, manifest in their interim state,
-                            and unmanifest again when annihilated. So what need is there for lamentation?</Text>
                     </View>
-                    <StatusBar style={"dark"}/>
-
-                </WorkArea>
 
 
-            </ScrollView>
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                        navigation.navigate("records")
+                    }}>
 
-            }</>);
+                        <View style={styles.chantRecords}>
+                            <Octicons name="graph" size={24} color="white"/>
+                            <Text style={{
+                                fontSize: 20, color: "white", fontWeight: "bold",
+
+                            }}>Chant Records</Text>
+
+                        </View>
+                    </TouchableOpacity>
+
+                </View>
+
+
+                {/*  Wisdom quote  */}
+
+                {wisdomData && <View style={styles.wisdomBox}>
+                    <HeadingText text={"Daily wisdom"} size={30} style={{
+                        letterSpacing: 0, fontWeight: "700",
+
+                    }}/>
+                    <Text style={{
+                        fontSize: 20, letterSpacing: 1
+                    }}>{wisdom[wisdomIndex]?.wisdom}</Text>
+                </View>}
+                <StatusBar style={"dark"}/>
+
+            </WorkArea>
+
+
+        </ScrollView>
+
+        }</>);
 };
 const styles = StyleSheet.create({
     container: {
@@ -293,11 +338,12 @@ const styles = StyleSheet.create({
 
     wisdomBox: {
         width: "100%",
-        height: 250,
+        height: "auto",
         marginTop: 20,
         backgroundColor: colors.lightBg,
         borderRadius: 25,
         padding: 20,
+
         marginBottom: 80,
         gap: 20,
         alignItems: "flex-start",

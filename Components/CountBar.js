@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text} from "react-native";
 import colors from "../config/colors";
 
-const CountBar = ({bgColor, textColor = "white", count, hour}) => {
+const CountBar = ({bgColor, textColor = "white", count, hour, date}) => {
 
     let width = Math.round((count / 16) * 100)
     width = width > 100 ? 100 : width
@@ -16,6 +16,12 @@ const CountBar = ({bgColor, textColor = "white", count, hour}) => {
     } else {
         bgC = colors.darkGreen
     }
+
+
+        const convertedDate = new Date(date);
+        const options = {day: 'numeric', month: 'long', year: 'numeric'};
+        const formattedDate = convertedDate.toLocaleDateString('en-US', options);
+
 
     return (<View style={{
         width: width > 45 ? `${width}%` : "45%",
@@ -32,7 +38,7 @@ const CountBar = ({bgColor, textColor = "white", count, hour}) => {
         <Text style={{
             fontSize: 15,
             color: textColor
-        }}>19 April,2025</Text>
+        }}>{formattedDate}</Text>
         <Text style={{
             fontSize: 45,
             color: textColor
