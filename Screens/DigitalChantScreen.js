@@ -16,6 +16,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import HeadingText from "../Components/HeadingText";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import * as Haptics from "expo-haptics"
 
 
 const ChantScreen = () => {
@@ -42,6 +43,7 @@ const ChantScreen = () => {
     }
 
     const addBead = () => {
+        Haptics.impactAsync("heavy")
         setBeads(prevState => prevState + 1)
     }
 
