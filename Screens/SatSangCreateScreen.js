@@ -43,20 +43,9 @@ const SatSangCreateScreen = ({navigation}) => {
     const uploadToServer = async () => {
         const formdata = new FormData()
         if (img) {
-            // let fileName = img.fileName || `photo_${Date.now()}.jpg`;
-            // let fileType = img.type || "image/jpeg";
-            // let fileUri = img.uri;
-            //
+         
             formdata.append("title", title)
             formdata.append("desc", desc)
-            //
-            // formdata.append("image", {
-            //     uri: Platform.OS === "android" ? fileUri : "file://" + fileUri,
-            //     name: fileName,
-            //     type: fileType,
-            // });
-
-
             formdata.append("image", {
                 uri: img.uri,
                 name: img.fileName || `photo_${Date.now()}.jpg`,

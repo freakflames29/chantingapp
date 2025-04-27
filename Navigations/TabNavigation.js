@@ -10,6 +10,7 @@ import TabBarIcon from "../Components/TabBarIcon";
 import colors from "../config/colors";
 import HomeNavigation from "./HomeNavigation";
 import SatsangNavigations from "./SatsangNavigations";
+import ProfileNavigation from './ProfileNavigation';
 
 const Tab = createBottomTabNavigator()
 
@@ -65,8 +66,9 @@ const TabNavigation = () => {
                             tabBarIcon: ({focused}) => <TabBarIcon name={"search"} focused={focused} label={"Satsang"}/>
                         }}
             />
-            <Tab.Screen name={"profile"} component={MyProfile}
+            <Tab.Screen name={"profilenavigation"} component={ProfileNavigation}
                         options={{
+                           
                             tabBarLabel: () => null,
                             tabBarIcon: ({focused}) => <TabBarIcon name={"user"} focused={focused} label={"Profile"}/>
                         }}
