@@ -4,28 +4,30 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import WorkArea from "./WorkArea";
 import colors from "../config/colors";
 const PostCard = ({image,username,desc,onPress}) => {
-    
+
+
+
     return (
         <View>
             <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={onPress}
                 style={styles.cardContainer}>
-                {image && <View style={styles.imageDiv}>
-                    <Image
-                        style={{
-                            width: "100%",
+                {/*{image && <View style={styles.imageDiv}>*/}
+                {/*    <Image*/}
+                {/*        style={{*/}
+                {/*            width: "100%",*/}
 
-                            height: "100%",
-                            borderRadius: 24,
+                {/*            height: "100%",*/}
+                {/*            borderRadius: 24,*/}
 
-                        }}
-                        resizeMode={"cover"}
-                        source={{
-                            uri:image
-                        }}
-                    />
-                </View>}
+                {/*        }}*/}
+                {/*        resizeMode={"cover"}*/}
+                {/*        source={{*/}
+                {/*            uri:image*/}
+                {/*        }}*/}
+                {/*    />*/}
+                {/*</View>}*/}
                 <View style={{
                     padding: 20,
 

@@ -153,7 +153,7 @@ const HomeScreen = ({navigation}) => {
         return <Loading/>
     }
     if (wisdomData){
-        wisdomIndex = getRandomInt(0,wisdomData.length)
+        wisdomIndex = getRandomInt(0,wisdomData.length-1)
         console.log("Wisdom index ",wisdomIndex)
     }
 

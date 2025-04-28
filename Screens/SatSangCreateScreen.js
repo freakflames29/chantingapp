@@ -151,10 +151,10 @@ const SatSangCreateScreen = ({navigation}) => {
                     />
                 }
 
-                <TouchableOpacity style={styles.chooseImg} activeOpacity={0.5} onPress={pickImg}>
-                    <MaterialCommunityIcons name="file-image-plus" size={24} color="black"/>
-                    <Text style={{fontSize: 20}}>Select Image</Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity style={styles.chooseImg} activeOpacity={0.5} onPress={pickImg}>*/}
+                {/*    <MaterialCommunityIcons name="file-image-plus" size={24} color="black"/>*/}
+                {/*    <Text style={{fontSize: 20}}>Select Image</Text>*/}
+                {/*</TouchableOpacity>*/}
 
                 <AppButton
                     title={ "Post"}
