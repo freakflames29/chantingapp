@@ -4,6 +4,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import WorkArea from "./WorkArea";
 import colors from "../config/colors";
 const PostCard = ({image,username,desc,onPress}) => {
+    
     return (
         <View>
             <TouchableOpacity

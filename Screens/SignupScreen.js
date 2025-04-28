@@ -138,6 +138,7 @@ const SignupScreen = ({navigation}) => {
                     style={styles.btnStyle}
                     underlayColor={colors.darkBlue}
                     textColor={"white"}
+                    loading={isPending}
                     onPress={makeSignupRequest}
                 />
 

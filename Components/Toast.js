@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
 
-const Toast = ({textColor, msg,iconName}) => {
+const Toast = ({textColor, msg, iconName}) => {
     const [show, setShow] = useState(true)
 
     useEffect(() => {
@@ -19,18 +19,21 @@ const Toast = ({textColor, msg,iconName}) => {
 
             {show && <View style={styles.container}>
 
-                <Entypo name={iconName} size={24} color={textColor} />
-                <Text style={{
-                    fontSize: 15,
-                    color: textColor
-                }}>{msg}</Text>
+
+
+                    <Entypo name={iconName} size={24} color={textColor}/>
+                    <Text style={{
+                        fontSize: 15,
+                        color: textColor
+                    }}>{msg}</Text>
+
             </View>}
         </>
     );
 };
 const styles = StyleSheet.create({
     container: {
-        width: "90%",
+        width: "80%",
         height: 70,
         zIndex: 100,
         backgroundColor: 'white',
@@ -40,10 +43,10 @@ const styles = StyleSheet.create({
         top: 80,
         borderRadius: 20,
         paddingHorizontal: 30,
-        alignItems:"center",
+        alignItems: "center",
         // justifyContent: "center",
-        flexDirection:"row",
-        gap:5,
+        flexDirection: "row",
+        gap: 5,
     }
 })
 

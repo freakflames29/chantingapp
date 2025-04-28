@@ -114,6 +114,7 @@ const LoginScreen = ({navigation}) => {
                     underlayColor={colors.darkGreen}
                     textColor={"white"}
                     disabled={btnDisable}
+                    loading={isPending}
                     onPress={makeLoginReq}
                 />
 

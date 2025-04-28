@@ -159,7 +159,8 @@ const ChantScreen = () => {
 
                 <View style={styles.btnBox}>
 
-                    <AppButton title={isPending ? "Saving..." : 'Save'}
+                    <AppButton title={'Save'}
+                               loading={isPending}
                                style={styles.saveBtn}
                                textColor={colors.darkGreen}
                                underlayColor={colors.lightGreen}

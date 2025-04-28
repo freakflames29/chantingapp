@@ -157,7 +157,8 @@ const SatSangCreateScreen = ({navigation}) => {
                 </TouchableOpacity>
 
                 <AppButton
-                    title={isPending ? "Posting..." : "Post"}
+                    title={ "Post"}
+                    loading={isPending}
                     textColor={colors.lightBg}
 
                     style={{
