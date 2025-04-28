@@ -4,11 +4,11 @@
     "slug": "radha",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash.jpeg",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash.jpeg",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.jpeg",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": ["INTERNET"]
