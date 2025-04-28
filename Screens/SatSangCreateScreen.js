@@ -24,6 +24,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Platform} from "react-native";
 import Toast from "../Components/Toast";
 import {StatusBar} from "expo-status-bar";
+import Bugsnag from "@bugsnag/expo";
 
 const SatSangCreateScreen = ({navigation}) => {
     const [img, setImg] = useState(null)
@@ -96,6 +97,7 @@ const SatSangCreateScreen = ({navigation}) => {
     })
 
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error in posting ", error)
     }
     if (isSuccess) {

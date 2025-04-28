@@ -14,7 +14,7 @@ import {useDispatch} from "react-redux";
 import {userActions} from "../redux/userSlice";
 import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncStorage";
 import Toast from "../Components/Toast";
-
+import Bugsnag from "@bugsnag/expo";
 
 const LoginScreen = ({navigation}) => {
     const [username, setUsername] = useState("")
@@ -32,6 +32,7 @@ const LoginScreen = ({navigation}) => {
             console.log("Success storig the data to localstorage from login screen")
 
         } catch (e) {
+            Bugsnag.notify(e)
             console.log("Error saving to data to localstorage from loginscreen", e)
         }
     }
@@ -70,7 +71,8 @@ const LoginScreen = ({navigation}) => {
 
     if (isError) {
         console.log(error.message)
-        return <Text>Error came</Text>
+        Bugsnag.notify(error)
+
     }
     if (data) {
         console.log("THe data is ", data)

@@ -10,7 +10,9 @@ import {useQuery} from "@tanstack/react-query";
 import Loading from "../Components/Loading";
 import {chantActions} from "../redux/chantSlice";
 
+
 import {StatusBar} from "expo-status-bar";
+import Bugsnag from "@bugsnag/expo";
 
 const ChantRecordsScreen = () => {
 
@@ -65,6 +67,7 @@ const ChantRecordsScreen = () => {
     }, [data]);
 
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error while loading the all count ", error)
     }
 

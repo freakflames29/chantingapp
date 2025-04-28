@@ -10,7 +10,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -20,16 +19,15 @@
       "supportsTablet": true
     },
     "android": {
-
       "package": "com.sourav29meow.radha",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
         "INTERNET"
-      ],
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +35,14 @@
     "extra": {
       "eas": {
         "projectId": "abdcdd68-ca33-458b-b389-8ed6eaa76e75"
+      },
+      "bugsnag": {
+        "apiKey": "a9e9c8f4add824f37571005893029c88"
       }
-    }
+    },
+    "plugins": [
+      "expo-secure-store",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
+    ]
   }
 }

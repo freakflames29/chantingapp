@@ -26,7 +26,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import HeadingText from "../Components/HeadingText";
 import TouchableText from "../Components/TouchableText";
 import Toast from "../Components/Toast";
-
+import Bugsnag from "@bugsnag/expo";
 
 const SignupScreen = ({navigation}) => {
 
@@ -55,6 +55,7 @@ const SignupScreen = ({navigation}) => {
         mutationKey: ["signup"], mutationFn: submitToServer
     })
     if (isError) {
+        Bugsnag.notify(error)
         console.log(error.message)
     }
 
@@ -65,6 +66,7 @@ const SignupScreen = ({navigation}) => {
             await asyncStorage.setItem("info", stringifyData)
             console.log("DATA SAVED TO ASYNC STORAGE")
         } catch (e) {
+            Bugsnag.notify(e)
             console.log("Error while setting the data")
         }
     }

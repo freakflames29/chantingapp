@@ -18,6 +18,7 @@ import {ROOT_URL} from "../config/Constants";
 import Loading from "../Components/Loading";
 import Octicons from '@expo/vector-icons/Octicons';
 import HeadingText from "../Components/HeadingText";
+import Bugsnag from "@bugsnag/expo";
 
 
 const HomeScreen = ({navigation}) => {
@@ -143,10 +144,12 @@ const HomeScreen = ({navigation}) => {
     }, [wisdomSuc])
 
     if (isWisdomError) {
+        Bugsnag.notify(wisdomError)
         console.log("Error fetching wisdom ", wisdomError)
     }
 
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error while fetching the count from home screen ", error)
     }
     if(wisdomLoading){

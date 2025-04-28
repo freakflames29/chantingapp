@@ -1,3 +1,6 @@
+import Bugsnag from '@bugsnag/expo';
+Bugsnag.start();
+
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import SignupScreen from "./Screens/SignupScreen";
@@ -14,6 +17,7 @@ import Root from "./Root";
 const queryClient = new QueryClient()
 
 export default function App() {
+    
     return (
         <QueryClientProvider client={queryClient}>
         <Provider store={store}>

@@ -9,6 +9,7 @@ import Loading from "../Components/Loading";
 import PostCard from "../Components/PostCard";
 import HeadingText from "../Components/HeadingText";
 import {useNavigation} from "@react-navigation/native";
+import Bugsnag from "@bugsnag/expo";
 
 const MyPosts = () => {
     const userInfo = useSelector(state => state.userReducer.info)
@@ -34,6 +35,7 @@ const MyPosts = () => {
         return <Loading/>
     }
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error fetching user post details ", error)
     }
 

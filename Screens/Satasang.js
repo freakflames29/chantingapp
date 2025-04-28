@@ -15,6 +15,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import PostCard from "../Components/PostCard";
 import {StatusBar} from "expo-status-bar";
 import {useNavigation} from "@react-navigation/native";
+import Bugsnag from "@bugsnag/expo";
 
 const Satasang = ({navigation}) => {
 
@@ -48,6 +49,7 @@ const Satasang = ({navigation}) => {
         return <Loading/>
     }
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error fetching all post ", error.message)
     }
 

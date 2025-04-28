@@ -17,6 +17,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import HeadingText from "../Components/HeadingText";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import * as Haptics from "expo-haptics"
+import Bugsnag from "@bugsnag/expo";
 
 
 const ChantScreen = () => {
@@ -88,6 +89,7 @@ const ChantScreen = () => {
         console.log("Data updated successfully")
     }
     if (isError) {
+        Bugsnag.notify(error)
         console.log("Error updating the chant, ", error.message)
     }
 
