@@ -107,24 +107,26 @@ const ChantScreen = () => {
                 {/*<Text style={{fontSize:20,color:"white"}}>Beads</Text>*/}
                 {/*<Text style={{fontSize:100,color:"white"}}>{beads}</Text>*/}
 
-                <AnimatedCircularProgress
-                    size={250}
-                    width={20}
-                    fill={progress}
-                    rotation={360}
-                    lineCap={"round"}
-                    tintColor={colors.darkGreen}
-                    onAnimationComplete={() => console.log('onAnimationComplete')}
-                    backgroundColor={colors.veryLightGreen}>
+                {/*<AnimatedCircularProgress*/}
+                {/*    size={250}*/}
+                {/*    width={20}*/}
+                {/*    fill={progress}*/}
+                {/*    rotation={360}*/}
+                {/*    lineCap={"round"}*/}
+                {/*    tintColor={colors.darkGreen}*/}
+                {/*    onAnimationComplete={() => console.log('onAnimationComplete')}*/}
+                {/*    backgroundColor={colors.veryLightGreen}>*/}
 
-                    {
-                        (fill) => <View style={{alignItems: "center"}}>
-                            <Text style={{fontSize: 20, color: colors.darkGreen}}>Rounds: {chantInfo.count}</Text>
-                            <Text style={{fontSize: 60, fontWeight: "bold", color: colors.darkGreen}}>{beads}</Text>
+                {/*    {*/}
+                {/*        (fill) => <View style={{alignItems: "center"}}>*/}
+                {/*            <Text style={{fontSize: 20, color: colors.darkGreen}}>Rounds: {chantInfo.count}</Text>*/}
+                {/*            <Text style={{fontSize: 60, fontWeight: "bold", color: colors.darkGreen}}>{beads}</Text>*/}
 
-                        </View>
-                    }
-                </AnimatedCircularProgress>
+                {/*        </View>*/}
+                {/*    }*/}
+                {/*</AnimatedCircularProgress>*/}
+                <Text style={{fontSize: 20, color: colors.darkGreen}}>Rounds: {chantInfo.count}</Text>
+               <Text style={{fontSize: 150, fontWeight: "bold", color: colors.darkGreen}}>{beads}</Text>
 
             </View>
             <View style={styles.downPart}>
