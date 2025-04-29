@@ -2,18 +2,18 @@
   "expo": {
     "name": "Radha",
     "slug": "radha",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/adaptive-icon.png",
+    "icon": "./assets/updated.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
     "assetBundlePatterns": [
       "**/*"
     ],
     "splash": {
-      "image": "./assets/adaptive-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FF90BB"
+      "backgroundColor": "#282828"
     },
     "ios": {
       "supportsTablet": true
@@ -22,8 +22,8 @@
       "package": "com.sourav29meow.radha",
       "versionCode": 4,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/updated.png",
+        "backgroundColor": "#282828"
       },
       "permissions": [
         "INTERNET"

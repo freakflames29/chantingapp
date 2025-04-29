@@ -10,15 +10,15 @@ import AuthNavigator from "./Navigations/AuthNavigator";
 import LoginScreen from "./Screens/LoginScreen";
 import Loading from "./Components/Loading";
 import Bugsnag from "@bugsnag/expo";
-import {View,Text,Button} from "react-native";
+import {View, Text, Button} from "react-native";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
-const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
 
-const ErrorView = ({ clearError }) => (
-  <View>
-    <Text>Something went wrong.</Text>
-    <Button onPress={clearError} title="Try Again" />
-  </View>
+const ErrorView = ({clearError}) => (
+    <View>
+        <Text>Something went wrong.</Text>
+        <Button onPress={clearError} title="Try Again"/>
+    </View>
 );
 
 
@@ -58,16 +58,19 @@ const Root = () => {
 
 
     return (
-        <ErrorBoundary FallbackComponent={ErrorView}>
+        <>
             {loading ? <Loading/> : <>
-                <NavigationContainer>
+                <GestureHandlerRootView style={{flex: 1}}>
 
-                    {userInfo === null ? <AuthNavigator/> : <TabNavigation/>}
-                </NavigationContainer>
+                    <NavigationContainer>
+
+                        {userInfo === null ? <AuthNavigator/> : <TabNavigation/>}
+                    </NavigationContainer>
+                </GestureHandlerRootView>
 
             </>}
+        </>
 
-        </ErrorBoundary>
     );
 };
 

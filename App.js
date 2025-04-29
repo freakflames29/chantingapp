@@ -1,5 +1,7 @@
 import Bugsnag from '@bugsnag/expo';
-Bugsnag.start();
+Bugsnag.start({
+    autoTrackSessions:true
+});
 
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
