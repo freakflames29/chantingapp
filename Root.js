@@ -8,6 +8,7 @@ import asyncStorage from "@react-native-async-storage/async-storage/src/AsyncSto
 import AuthNavigator from "./Navigations/AuthNavigator";
 import LoginScreen from "./Screens/LoginScreen";
 import Loading from "./Components/Loading";
+import Bugsnag from "@bugsnag/expo";
 
 
 const Root = () => {
@@ -28,6 +29,7 @@ const Root = () => {
                 dispatch(userActions.setData(parsedData))
             }
         } catch (e) {
+            Bugsnag.notify(e)
             console.log("Error reading the data from async storage ", e)
         } finally {
             setLoading(false)
