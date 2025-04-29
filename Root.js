@@ -1,3 +1,4 @@
+import React from "react";
 import {useEffect, useState} from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import TabNavigation from "./Navigations/TabNavigation";
@@ -9,6 +10,16 @@ import AuthNavigator from "./Navigations/AuthNavigator";
 import LoginScreen from "./Screens/LoginScreen";
 import Loading from "./Components/Loading";
 import Bugsnag from "@bugsnag/expo";
+import {View,Text,Button} from "react-native";
+
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
+
+const ErrorView = ({ clearError }) => (
+  <View>
+    <Text>Something went wrong.</Text>
+    <Button onPress={clearError} title="Try Again" />
+  </View>
+);
 
 
 const Root = () => {
@@ -47,7 +58,7 @@ const Root = () => {
 
 
     return (
-        <>
+        <ErrorBoundary FallbackComponent={ErrorView}>
             {loading ? <Loading/> : <>
                 <NavigationContainer>
 
@@ -56,7 +67,7 @@ const Root = () => {
 
             </>}
 
-        </>
+        </ErrorBoundary>
     );
 };
 
